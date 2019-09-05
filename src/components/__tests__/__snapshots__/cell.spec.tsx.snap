@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cell renders correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  background: transparent;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+}
+
+.c0:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`Cell renders correctly with props 1`] = `
+<DocumentFragment>
+  .c0 {
+  background: red;
+  border: 1px solid black;
+  border-width: 0 1px 1px 0;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+}
+
+.c0:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
