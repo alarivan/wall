@@ -18,4 +18,9 @@ export type PAINT_ACTION = {
   };
 };
 
-export type TAction = PAINT_ACTION | { type: 'EMPTY' };
+export const CLEAR = 'CLEAR';
+export type CLEAR_ACTION = {
+  type: typeof CLEAR;
+};
+
+export type TAction = PAINT_ACTION | CLEAR_ACTION | { type: 'EMPTY' };
