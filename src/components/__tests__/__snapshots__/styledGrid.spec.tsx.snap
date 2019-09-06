@@ -13,6 +13,7 @@ exports[`StyledGrid renders correctly 1`] = `
   grid-template-rows: repeat(2,10px);
   border: 1px solid black;
   border-width: 1px 0px 0px 1px;
+  background: #c2c2d1;
 }
 
 <div
@@ -36,6 +37,7 @@ exports[`StyledGrid renders correctly with preview 1`] = `
   grid-template-rows: repeat(2,10px);
   border: 1px solid black;
   border-width: 1px;
+  background: #c2c2d1;
 }
 
 <div

@@ -18,6 +18,7 @@ const StyledGrid = styled.div<StyledGridProps>`
 
   border: 1px solid black;
   border-width: ${({ preview }) => (preview ? '1px' : '1px 0px 0px 1px')};
+  background: #c2c2d1;
 `;
 
 export default StyledGrid;
