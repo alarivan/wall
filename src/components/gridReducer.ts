@@ -11,10 +11,10 @@ import {
 export const initialState: TGrid = {
   meta: {
     rows: 20,
-    columns: 10,
+    columns: 20,
     width: 20,
   },
-  data: new Array(200).fill(null),
+  data: emptyGrid(20, 20),
 };
 
 export function paintAction(index: number, color: TColor): PAINT_ACTION {
