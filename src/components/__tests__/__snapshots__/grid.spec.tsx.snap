@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Grid renders correctly 1`] = `
+<DocumentFragment>
+  .c1 {
+  background: transparent;
+  border: 1px solid black;
+  border-width: 0 1px 1px 0;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+}
+
+.c1:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c0 {
+  display: grid;
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  grid-gap: 0;
+  grid-template-columns: repeat( 2,10px );
+  grid-template-rows: repeat(2,10px);
+  border: 1px solid black;
+  border-width: 1px 0px 0px 1px;
+}
+
+<div
+    class="c0"
+    rows="2"
+    width="10"
+  >
+    <div
+      class="c1"
+      data-testid="grid-cell"
+    />
+    <div
+      class="c1"
+      data-testid="grid-cell"
+    />
+    <div
+      class="c1"
+      data-testid="grid-cell"
+    />
+    <div
+      class="c1"
+      data-testid="grid-cell"
+    />
+  </div>
+</DocumentFragment>
+`;
