@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledGrid renders correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: grid;
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  grid-gap: 0;
+  grid-template-columns: repeat( 2,10px );
+  grid-template-rows: repeat(2,10px);
+  border: 1px solid black;
+  border-width: 1px 0px 0px 1px;
+}
+
+<div
+    class="c0"
+    rows="2"
+    width="10"
+  />
+</DocumentFragment>
+`;
+
+exports[`StyledGrid renders correctly with preview 1`] = `
+<DocumentFragment>
+  .c0 {
+  display: grid;
+  -webkit-box-pack: start;
+  -webkit-justify-content: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  grid-gap: 0;
+  grid-template-columns: repeat( 2,10px );
+  grid-template-rows: repeat(2,10px);
+  border: 1px solid black;
+  border-width: 1px;
+}
+
+<div
+    class="c0"
+    rows="2"
+    width="10"
+  />
+</DocumentFragment>
+`;
