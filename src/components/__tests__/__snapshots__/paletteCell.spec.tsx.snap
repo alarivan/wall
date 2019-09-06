@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteCell renders correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  background: red;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  border-style: solid;
+  border-color: black;
+  border-width: 0;
+  border-radius: none;
+  -webkit-transition: border-radius 50ms ease-in-out;
+  transition: border-radius 50ms ease-in-out;
+}
+
+.c0:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c0:hover {
+  border-width: 0;
+  border-radius: none;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
+
+exports[`PaletteCell renders correctly with active 1`] = `
+<DocumentFragment>
+  .c0 {
+  background: red;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  border-style: solid;
+  border-color: black;
+  border-width: 0;
+  border-radius: 50%;
+  -webkit-transition: border-radius 50ms ease-in-out;
+  transition: border-radius 50ms ease-in-out;
+}
+
+.c0:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c0:hover {
+  border-width: 0;
+  border-radius: 50%;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
