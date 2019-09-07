@@ -19,7 +19,7 @@ describe('Grid', () => {
     const { asFragment } = render(
       <Grid
         grid={initialState}
-        dispatch={jest.fn()}
+        onCellClick={jest.fn()}
         preview={false}
         brush='red'
       />,
@@ -28,10 +28,10 @@ describe('Grid', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('call dispatch', () => {
+  it('call onCellClick', () => {
     const props = {
       grid: initialState,
-      dispatch: jest.fn(),
+      onCellClick: jest.fn(),
       preview: false,
       brush: 'red',
     };
@@ -39,6 +39,6 @@ describe('Grid', () => {
 
     fireEvent.click(queryAllByTestId('grid-cell')[0]);
 
-    expect(props.dispatch).toHaveBeenCalledTimes(1);
+    expect(props.onCellClick).toHaveBeenCalledTimes(1);
   });
 });
