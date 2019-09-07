@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridControlsInput renders correctly 1`] = `
+<DocumentFragment>
+  <label>
+    label
+  </label>
+  <input
+    data-testid="grid-controls-input"
+    max="10"
+    min="5"
+    name="name"
+    type="number"
+    value="8"
+  />
+</DocumentFragment>
+`;
