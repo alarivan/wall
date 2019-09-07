@@ -23,4 +23,34 @@ export type CLEAR_ACTION = {
   type: typeof CLEAR;
 };
 
-export type TAction = PAINT_ACTION | CLEAR_ACTION | { type: 'EMPTY' };
+export const UPDATE_ROWS = 'UPDATE_ROWS';
+export type UPDATE_ROWS_ACTION = {
+  type: typeof UPDATE_ROWS;
+  payload: {
+    value: number;
+  };
+};
+
+export const UPDATE_COLUMNS = 'UPDATE_COLUMNS';
+export type UPDATE_COLUMNS_ACTION = {
+  type: typeof UPDATE_COLUMNS;
+  payload: {
+    value: number;
+  };
+};
+
+export const UPDATE_WIDTH = 'UPDATE_WIDTH';
+export type UPDATE_WIDTH_ACTION = {
+  type: typeof UPDATE_WIDTH;
+  payload: {
+    value: number;
+  };
+};
+
+export type TAction =
+  | PAINT_ACTION
+  | CLEAR_ACTION
+  | UPDATE_ROWS_ACTION
+  | UPDATE_COLUMNS_ACTION
+  | UPDATE_WIDTH_ACTION
+  | { type: 'EMPTY' };
