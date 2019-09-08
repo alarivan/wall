@@ -62,6 +62,11 @@ export type REDO_ACTION = {
   type: typeof REDO;
 };
 
+export const RESET = 'RESET';
+export type RESET_ACTION = {
+  type: typeof RESET;
+};
+
 export type TAction =
   | PAINT_ACTION
   | CLEAR_ACTION
@@ -70,4 +75,5 @@ export type TAction =
   | UPDATE_SIZE_ACTION
   | UNDO_ACTION
   | REDO_ACTION
+  | RESET_ACTION
   | { type: 'EMPTY' };

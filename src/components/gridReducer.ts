@@ -17,6 +17,8 @@ import {
   UNDO_ACTION,
   REDO,
   REDO_ACTION,
+  RESET,
+  RESET_ACTION,
 } from '../types';
 
 export const initialState: TState = {
@@ -65,6 +67,11 @@ export function redoAction(): REDO_ACTION {
     type: REDO,
   };
 }
+export function resetAction(): RESET_ACTION {
+  return {
+    type: RESET,
+  };
+}
 
 export const gridReducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
@@ -96,6 +103,9 @@ export const gridReducer = (state: TState, action: TAction): TState => {
         return Object.assign({}, state, { current: state.current + 1 });
       }
       return state;
+
+    case RESET:
+      return initialState;
 
     default:
       return state;

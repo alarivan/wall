@@ -5,6 +5,8 @@ import {
   updateRowsAction,
   updateColumnsAction,
   updateSizeAction,
+  resetAction,
+  initialState as realInitialState,
 } from '../gridReducer';
 import {
   TState,
@@ -225,5 +227,12 @@ describe('gridReducer', () => {
     });
 
     expect(state).toEqual(updatedState);
+  });
+
+  it('resets state on "RESET" action', () => {
+    const action: TAction = resetAction();
+    const updatedState: TState = gridReducer(initialState, action);
+
+    expect(updatedState).toEqual(realInitialState);
   });
 });
