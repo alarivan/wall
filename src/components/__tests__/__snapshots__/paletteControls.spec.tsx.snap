@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteControls renders correctly 1`] = `
+<DocumentFragment>
+  .c2 {
+  background: red;
+  border-style: solid;
+  border-color: red;
+  border-width: 0 1px 1px 0;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  border-style: solid;
+  border-color: black;
+  border-width: 0;
+  border-radius: 50%;
+  -webkit-transition: border-radius 50ms ease-in-out;
+  transition: border-radius 50ms ease-in-out;
+}
+
+.c2:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c2:hover {
+  border-width: 0;
+  border-radius: 50%;
+}
+
+.c1 {
+  display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(3,20px);
+  grid-auto-rows: 20px;
+  -webkit-align-self: start;
+  -ms-flex-item-align: start;
+  align-self: start;
+  background: #c2c2d1;
+  padding: 0.25rem;
+}
+
+.c0 {
+  padding: 0 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2px;
+  -webkit-align-content: start;
+  -ms-flex-line-pack: start;
+  align-content: start;
+}
+
+<div
+    class="c0"
+  >
+    <div
+      class="c1"
+    >
+      <div
+        class="c2"
+        data-testid="palette-cell"
+      />
+    </div>
+    <button
+      data-testid="palette-controls-eraser"
+    >
+      eraser
+    </button>
+    <button
+      data-testid="palette-controls-clear"
+    >
+      clear
+    </button>
+    <button
+      data-testid="palette-controls-color-picker"
+    >
+      pick color
+    </button>
+  </div>
+</DocumentFragment>
+`;
