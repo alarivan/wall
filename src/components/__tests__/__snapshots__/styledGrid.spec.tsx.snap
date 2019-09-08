@@ -11,8 +11,9 @@ exports[`StyledGrid renders correctly 1`] = `
   grid-gap: 0;
   grid-template-columns: repeat( 2,10px );
   grid-template-rows: repeat(2,10px);
-  border: 1px solid black;
-  border-width: 1px 0px 0px 1px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black white white black;
   background: #c2c2d1;
 }
 
@@ -35,8 +36,9 @@ exports[`StyledGrid renders correctly with preview 1`] = `
   grid-gap: 0;
   grid-template-columns: repeat( 2,10px );
   grid-template-rows: repeat(2,10px);
-  border: 1px solid black;
+  border-style: solid;
   border-width: 1px;
+  border-color: black;
   background: #c2c2d1;
 }
 

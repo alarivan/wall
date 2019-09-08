@@ -4,6 +4,9 @@ exports[`Palette renders correctly 1`] = `
 <DocumentFragment>
   .c1 {
   background: white;
+  border-style: solid;
+  border-color: white;
+  border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
   transition: transform 100ms ease-in-out;
@@ -31,6 +34,9 @@ exports[`Palette renders correctly 1`] = `
 
 .c2 {
   background: blue;
+  border-style: solid;
+  border-color: blue;
+  border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
   transition: transform 100ms ease-in-out;
@@ -58,6 +64,9 @@ exports[`Palette renders correctly 1`] = `
 
 .c3 {
   background: red;
+  border-style: solid;
+  border-color: red;
+  border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
   transition: transform 100ms ease-in-out;

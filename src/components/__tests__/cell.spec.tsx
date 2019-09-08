@@ -9,6 +9,7 @@ describe('Cell', () => {
     const { asFragment, container } = render(<Cell cellColor={null} />);
 
     expect(container.firstChild).toHaveStyleRule('background', 'transparent');
+    expect(container.firstChild).toHaveStyleRule('border-color', 'transparent');
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -17,8 +18,7 @@ describe('Cell', () => {
     const { asFragment, container } = render(<Cell {...props} />);
 
     expect(container.firstChild).toHaveStyleRule('background', 'red');
-    expect(container.firstChild).toHaveStyleRule('border', '1px solid black');
-    expect(container.firstChild).toHaveStyleRule('border-width', '0 1px 1px 0');
+    expect(container.firstChild).toHaveStyleRule('border-color', 'black');
     expect(asFragment()).toMatchSnapshot();
   });
 });

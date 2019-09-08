@@ -4,7 +4,8 @@ exports[`Grid renders correctly 1`] = `
 <DocumentFragment>
   .c1 {
   background: transparent;
-  border: 1px solid black;
+  border-style: solid;
+  border-color: black;
   border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
@@ -28,8 +29,9 @@ exports[`Grid renders correctly 1`] = `
   grid-gap: 0;
   grid-template-columns: repeat( 2,10px );
   grid-template-rows: repeat(2,10px);
-  border: 1px solid black;
-  border-width: 1px 0px 0px 1px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black white white black;
   background: #c2c2d1;
 }
 

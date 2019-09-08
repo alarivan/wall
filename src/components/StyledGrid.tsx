@@ -7,6 +7,10 @@ interface StyledGridProps {
   readonly preview: boolean;
 }
 
+function getBorderColor({ preview }: StyledGridProps): string {
+  return preview ? 'black' : 'black white white black';
+}
+
 const StyledGrid = styled.div<StyledGridProps>`
   display: grid;
   justify-content: start;
@@ -16,8 +20,9 @@ const StyledGrid = styled.div<StyledGridProps>`
   );
   grid-template-rows: repeat(${props => props.rows + ', ' + props.size}px);
 
-  border: 1px solid black;
-  border-width: ${({ preview }) => (preview ? '1px' : '1px 0px 0px 1px')};
+  border-style: solid;
+  border-width: 1px;
+  border-color: ${getBorderColor};
   background: #c2c2d1;
 `;
 

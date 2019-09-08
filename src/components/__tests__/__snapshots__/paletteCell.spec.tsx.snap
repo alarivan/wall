@@ -4,6 +4,9 @@ exports[`PaletteCell renders correctly 1`] = `
 <DocumentFragment>
   .c0 {
   background: red;
+  border-style: solid;
+  border-color: red;
+  border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
   transition: transform 100ms ease-in-out;
@@ -39,6 +42,9 @@ exports[`PaletteCell renders correctly with active 1`] = `
 <DocumentFragment>
   .c0 {
   background: red;
+  border-style: solid;
+  border-color: red;
+  border-width: 0 1px 1px 0;
   -webkit-transition: -webkit-transform 100ms ease-in-out;
   -webkit-transition: transform 100ms ease-in-out;
   transition: transform 100ms ease-in-out;

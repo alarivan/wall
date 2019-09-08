@@ -26,8 +26,8 @@ describe('StyledGrid', () => {
     );
 
     expect(container.firstChild).toHaveStyleRule(
-      'border-width',
-      '1px 0px 0px 1px',
+      'border-color',
+      'black white white black',
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -38,7 +38,7 @@ describe('StyledGrid', () => {
       <StyledGrid {...props} preview={true} />,
     );
 
-    expect(container.firstChild).toHaveStyleRule('border-width', '1px');
+    expect(container.firstChild).toHaveStyleRule('border-color', 'black');
 
     expect(asFragment()).toMatchSnapshot();
   });
