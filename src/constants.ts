@@ -50,3 +50,5 @@ export const MAX_COLUMNS_VALUE = 32;
 
 export const MIN_WIDTH_VALUE = 5;
 export const MAX_WIDTH_VALUE = 32;
+
+export const LOCAL_STORAGE_KEY = 'wall:state';
