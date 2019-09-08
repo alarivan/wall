@@ -9,7 +9,7 @@ const initialState: TGrid = {
   meta: {
     columns: 2,
     rows: 2,
-    width: 10,
+    size: 10,
   },
   data: new Array(4).fill(null),
 };

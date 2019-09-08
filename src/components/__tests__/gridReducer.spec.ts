@@ -4,7 +4,7 @@ import {
   clearAction,
   updateRowsAction,
   updateColumnsAction,
-  updateWidthAction,
+  updateSizeAction,
 } from '../gridReducer';
 import {
   TState,
@@ -17,8 +17,8 @@ import {
   UPDATE_ROWS_ACTION,
   UPDATE_COLUMNS,
   UPDATE_COLUMNS_ACTION,
-  UPDATE_WIDTH_ACTION,
-  UPDATE_WIDTH,
+  UPDATE_SIZE_ACTION,
+  UPDATE_SIZE,
 } from '../../types';
 
 const initialState: TState = {
@@ -27,7 +27,7 @@ const initialState: TState = {
       meta: {
         columns: 2,
         rows: 2,
-        width: 10,
+        size: 10,
       },
       data: Array(4).fill(null),
     },
@@ -41,7 +41,7 @@ const initialStateWithValues: TState = {
       meta: {
         columns: 2,
         rows: 2,
-        width: 10,
+        size: 10,
       },
       data: ['white', 'blue', 'red', 'black'],
     },
@@ -95,11 +95,11 @@ describe('gridReducer', () => {
     });
   });
 
-  it('creates UPDATE_WIDTH', () => {
-    const action: UPDATE_WIDTH_ACTION = updateWidthAction(3);
+  it('creates UPDATE_SIZE', () => {
+    const action: UPDATE_SIZE_ACTION = updateSizeAction(3);
 
     expect(action).toEqual({
-      type: UPDATE_WIDTH,
+      type: UPDATE_SIZE,
       payload: {
         value: 3,
       },
@@ -210,15 +210,15 @@ describe('gridReducer', () => {
     expect(state).toEqual(updatedState);
   });
 
-  it('updates state on "UPDATE_WIDTH" action ', () => {
-    const action: TAction = updateWidthAction(20);
+  it('updates state on "UPDATE_SIZE" action ', () => {
+    const action: TAction = updateSizeAction(20);
     const state: TState = gridReducer(initialStateWithValues, action);
 
     const updatedState: TState = Object.assign({}, initialStateWithValues, {
       history: [
         ...initialStateWithValues.history,
         Object.assign({}, initialStateWithValues.history[0], {
-          meta: { ...initialStateWithValues.history[0].meta, width: 20 },
+          meta: { ...initialStateWithValues.history[0].meta, size: 20 },
         }),
       ],
       current: 1,

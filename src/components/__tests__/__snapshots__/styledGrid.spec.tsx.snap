@@ -19,7 +19,7 @@ exports[`StyledGrid renders correctly 1`] = `
 <div
     class="c0"
     rows="2"
-    width="10"
+    size="10"
   />
 </DocumentFragment>
 `;
@@ -43,7 +43,7 @@ exports[`StyledGrid renders correctly with preview 1`] = `
 <div
     class="c0"
     rows="2"
-    width="10"
+    size="10"
   />
 </DocumentFragment>
 `;

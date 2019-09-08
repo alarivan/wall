@@ -4,7 +4,7 @@ export type TGrid = {
   meta: {
     rows: number;
     columns: number;
-    width: number;
+    size: number;
   };
   data: TColor[];
 };
@@ -44,9 +44,9 @@ export type UPDATE_COLUMNS_ACTION = {
   };
 };
 
-export const UPDATE_WIDTH = 'UPDATE_WIDTH';
-export type UPDATE_WIDTH_ACTION = {
-  type: typeof UPDATE_WIDTH;
+export const UPDATE_SIZE = 'UPDATE_SIZE';
+export type UPDATE_SIZE_ACTION = {
+  type: typeof UPDATE_SIZE;
   payload: {
     value: number;
   };
@@ -67,7 +67,7 @@ export type TAction =
   | CLEAR_ACTION
   | UPDATE_ROWS_ACTION
   | UPDATE_COLUMNS_ACTION
-  | UPDATE_WIDTH_ACTION
+  | UPDATE_SIZE_ACTION
   | UNDO_ACTION
   | REDO_ACTION
   | { type: 'EMPTY' };

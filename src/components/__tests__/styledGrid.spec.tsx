@@ -7,7 +7,7 @@ afterEach(cleanup);
 const props = {
   columns: 2,
   rows: 2,
-  width: 10,
+  size: 10,
   preview: false,
 };
 

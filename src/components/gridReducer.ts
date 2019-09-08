@@ -11,8 +11,8 @@ import {
   UPDATE_ROWS_ACTION,
   UPDATE_COLUMNS,
   UPDATE_COLUMNS_ACTION,
-  UPDATE_WIDTH_ACTION,
-  UPDATE_WIDTH,
+  UPDATE_SIZE_ACTION,
+  UPDATE_SIZE,
   UNDO,
   UNDO_ACTION,
   REDO,
@@ -21,7 +21,7 @@ import {
 
 export const initialState: TState = {
   history: [
-    _emptyGrid({ meta: { rows: 20, columns: 20, width: 20 }, data: [] }),
+    _emptyGrid({ meta: { rows: 20, columns: 20, size: 20 }, data: [] }),
   ],
   current: 0,
 };
@@ -49,9 +49,9 @@ export function updateColumnsAction(value: number): UPDATE_COLUMNS_ACTION {
     payload: { value },
   };
 }
-export function updateWidthAction(value: number): UPDATE_WIDTH_ACTION {
+export function updateSizeAction(value: number): UPDATE_SIZE_ACTION {
   return {
-    type: UPDATE_WIDTH,
+    type: UPDATE_SIZE,
     payload: { value },
   };
 }
@@ -82,7 +82,7 @@ export const gridReducer = (state: TState, action: TAction): TState => {
       return _updateGrid(state, _updateColumns(action));
     }
 
-    case UPDATE_WIDTH:
+    case UPDATE_SIZE:
       return _updateGrid(state, _updateSize(action));
 
     case UNDO:
@@ -136,10 +136,10 @@ function _paintCell(action: PAINT_ACTION): (grid: TGrid) => TGrid {
   };
 }
 
-function _updateSize(action: UPDATE_WIDTH_ACTION): (grid: TGrid) => TGrid {
+function _updateSize(action: UPDATE_SIZE_ACTION): (grid: TGrid) => TGrid {
   return function(grid: TGrid): TGrid {
     return Object.assign({}, grid, {
-      meta: { ...grid.meta, width: action.payload.value },
+      meta: { ...grid.meta, size: action.payload.value },
     });
   };
 }
