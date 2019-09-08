@@ -1,4 +1,5 @@
 import {
+  TState,
   TGrid,
   TColor,
   TAction,
@@ -12,15 +13,17 @@ import {
   UPDATE_COLUMNS_ACTION,
   UPDATE_WIDTH_ACTION,
   UPDATE_WIDTH,
+  UNDO,
+  UNDO_ACTION,
+  REDO,
+  REDO_ACTION,
 } from '../types';
 
-export const initialState: TGrid = {
-  meta: {
-    rows: 20,
-    columns: 20,
-    width: 20,
-  },
-  data: _emptyGrid(20, 20),
+export const initialState: TState = {
+  history: [
+    _emptyGrid({ meta: { rows: 20, columns: 20, width: 20 }, data: [] }),
+  ],
+  current: 0,
 };
 
 export function paintAction(index: number, color: TColor): PAINT_ACTION {
@@ -52,79 +55,152 @@ export function updateWidthAction(value: number): UPDATE_WIDTH_ACTION {
     payload: { value },
   };
 }
+export function undoAction(): UNDO_ACTION {
+  return {
+    type: UNDO,
+  };
+}
+export function redoAction(): REDO_ACTION {
+  return {
+    type: REDO,
+  };
+}
 
-export const gridReducer = (state: TGrid, action: TAction): TGrid => {
+export const gridReducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case PAINT:
-      const arr: TColor[] = [];
-      const data = arr.concat(
-        state.data.slice(0, action.payload.index),
-        [action.payload.color],
-        state.data.slice(action.payload.index + 1),
-      );
-      return Object.assign({}, state, { data });
+      return _updateGrid(state, _paintCell(action));
+
     case CLEAR:
-      return Object.assign({}, state, {
-        data: _emptyGrid(state.meta.rows, state.meta.columns),
-      });
-    case UPDATE_ROWS:
-      return _updateRows(state, action.payload.value);
-    case UPDATE_COLUMNS:
-      return _updateColumns(state, action.payload.value);
+      return _updateGrid(state, _emptyGrid);
+
+    case UPDATE_ROWS: {
+      return _updateGrid(state, _updateRows(action));
+    }
+
+    case UPDATE_COLUMNS: {
+      return _updateGrid(state, _updateColumns(action));
+    }
+
     case UPDATE_WIDTH:
-      return Object.assign({}, state, {
-        meta: { ...state.meta, width: action.payload.value },
-      });
+      return _updateGrid(state, _updateSize(action));
+
+    case UNDO:
+      if (state.current > 0) {
+        return Object.assign({}, state, { current: state.current - 1 });
+      }
+      return state;
+
+    case REDO:
+      if (state.current < state.history.length - 1) {
+        return Object.assign({}, state, { current: state.current + 1 });
+      }
+      return state;
+
     default:
       return state;
   }
 };
 
-function _emptyGrid(rows: number, columns: number): TColor[] {
-  return _emptyArray(rows * columns);
+function _updateGrid(state: TState, fn: (grid: TGrid) => TGrid): TState {
+  const currentHistory = state.history.slice(0, state.current + 1);
+  const current = currentHistory[state.current];
+  const grid = fn(current);
+
+  return _addToHistory(currentHistory, grid, state);
+}
+
+function _addToHistory(history: TGrid[], next: TGrid, state: TState): TState {
+  return Object.assign({}, state, {
+    history: [...history, next],
+    current: state.current + 1,
+  });
+}
+
+function _emptyGrid(grid: TGrid): TGrid {
+  return Object.assign({}, grid, {
+    data: _emptyArray(grid.meta.rows * grid.meta.columns),
+  });
+}
+
+function _paintCell(action: PAINT_ACTION): (grid: TGrid) => TGrid {
+  return function(grid: TGrid): TGrid {
+    const arr: TColor[] = [];
+    const data = arr.concat(
+      grid.data.slice(0, action.payload.index),
+      [action.payload.color],
+      grid.data.slice(action.payload.index + 1),
+    );
+
+    return Object.assign({}, grid, { data });
+  };
+}
+
+function _updateSize(action: UPDATE_WIDTH_ACTION): (grid: TGrid) => TGrid {
+  return function(grid: TGrid): TGrid {
+    return Object.assign({}, grid, {
+      meta: { ...grid.meta, width: action.payload.value },
+    });
+  };
+}
+
+function _updateRows(action: UPDATE_ROWS_ACTION): (grid: TGrid) => TGrid {
+  return function(grid: TGrid): TGrid {
+    const newSize = action.payload.value * grid.meta.columns;
+    const oldSize = grid.meta.columns * grid.meta.rows;
+    const difference = newSize - oldSize;
+    const stateCopy = [...grid.data];
+
+    let data;
+    if (difference > 0) {
+      data = stateCopy.concat(_emptyArray(difference));
+    } else {
+      data = stateCopy.splice(0, stateCopy.length - Math.abs(difference));
+    }
+
+    return Object.assign({}, grid, {
+      data,
+      meta: { ...grid.meta, rows: action.payload.value },
+    });
+  };
+}
+
+function _updateColumns(action: UPDATE_COLUMNS_ACTION): (grid: TGrid) => TGrid {
+  return function(grid: TGrid): TGrid {
+    const newSize = action.payload.value * grid.meta.rows;
+    const oldSize = grid.meta.columns * grid.meta.rows;
+    const difference = newSize - oldSize;
+
+    let data = [...grid.data];
+    if (difference > 0) {
+      for (
+        let i = action.payload.value - 1;
+        i < newSize;
+        i += action.payload.value
+      ) {
+        data.splice(
+          i,
+          0,
+          ..._emptyArray(action.payload.value - grid.meta.columns),
+        );
+      }
+    } else {
+      for (
+        let i = action.payload.value;
+        i < newSize + 1;
+        i += action.payload.value
+      ) {
+        data.splice(i, grid.meta.columns - action.payload.value);
+      }
+    }
+
+    return Object.assign({}, grid, {
+      data,
+      meta: { ...grid.meta, columns: action.payload.value },
+    });
+  };
 }
 
 function _emptyArray(size: number): null[] {
-  return new Array(size).fill(null);
-}
-
-function _updateRows(state: TGrid, rows: number): TGrid {
-  const newSize = rows * state.meta.columns;
-  const oldSize = state.meta.columns * state.meta.rows;
-  const difference = newSize - oldSize;
-  const stateCopy = [...state.data];
-
-  let data;
-  if (difference > 0) {
-    data = stateCopy.concat(_emptyArray(difference));
-  } else {
-    data = stateCopy.splice(0, stateCopy.length - Math.abs(difference));
-  }
-
-  return Object.assign({}, state, {
-    data,
-    meta: { ...state.meta, rows },
-  });
-}
-
-function _updateColumns(state: TGrid, columns: number): TGrid {
-  const newSize = columns * state.meta.rows;
-  const oldSize = state.meta.columns * state.meta.rows;
-  const difference = newSize - oldSize;
-
-  let data = [...state.data];
-  if (difference > 0) {
-    for (let i = columns - 1; i < newSize; i += columns) {
-      data.splice(i, 0, ..._emptyArray(columns - state.meta.columns));
-    }
-  } else {
-    for (let i = columns; i < newSize + 1; i += columns) {
-      data.splice(i, state.meta.columns - columns);
-    }
-  }
-
-  return Object.assign({}, state, {
-    data,
-    meta: { ...state.meta, columns },
-  });
+  return Array(size).fill(null);
 }

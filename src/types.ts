@@ -9,6 +9,11 @@ export type TGrid = {
   data: TColor[];
 };
 
+export type TState = {
+  history: TGrid[];
+  current: number;
+};
+
 export const PAINT = 'PAINT';
 export type PAINT_ACTION = {
   type: typeof PAINT;
@@ -47,10 +52,22 @@ export type UPDATE_WIDTH_ACTION = {
   };
 };
 
+export const UNDO = 'UNDO';
+export type UNDO_ACTION = {
+  type: typeof UNDO;
+};
+
+export const REDO = 'REDO';
+export type REDO_ACTION = {
+  type: typeof REDO;
+};
+
 export type TAction =
   | PAINT_ACTION
   | CLEAR_ACTION
   | UPDATE_ROWS_ACTION
   | UPDATE_COLUMNS_ACTION
   | UPDATE_WIDTH_ACTION
+  | UNDO_ACTION
+  | REDO_ACTION
   | { type: 'EMPTY' };
