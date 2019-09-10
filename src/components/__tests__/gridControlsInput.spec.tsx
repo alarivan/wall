@@ -13,6 +13,15 @@ const props = {
   onChange: jest.fn(),
 };
 
+const timer = (callback: () => void, delay: number) => {
+  new Promise(resolve => {
+    setTimeout(() => {
+      callback();
+      resolve();
+    }, delay);
+  });
+};
+
 describe('GridControlsInput', () => {
   it('renders correctly', () => {
     const { asFragment } = render(<GridControlsInput {...props} />);
@@ -20,20 +29,33 @@ describe('GridControlsInput', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('calls onChange when value is in allowed range', () => {
+  it('calls onChange when value is in allowed range only after delay', () => {
     const onChange = jest.fn();
     const { getByTestId } = render(
       <GridControlsInput {...props} onChange={onChange} />,
     );
+    const input = getByTestId('grid-controls-input');
 
-    fireEvent.change(getByTestId('grid-controls-input'), {
-      target: { value: 9 },
-    });
+    fireEvent.change(input, { target: { value: 9 } });
+    fireEvent.change(input, { target: { value: 5 } });
+    fireEvent.change(input, { target: { value: 20 } });
 
-    fireEvent.change(getByTestId('grid-controls-input'), {
-      target: { value: 20 },
-    });
+    jest.useFakeTimers();
 
-    expect(onChange).toHaveBeenCalledTimes(1);
+    timer(() => {
+      fireEvent.change(input, { target: { value: 9 } });
+    }, 300);
+    timer(() => {
+      fireEvent.change(input, { target: { value: 20 } });
+    }, 300);
+    timer(() => {
+      fireEvent.change(input, { target: { value: 5 } });
+    }, 300);
+
+    timer(() => {
+      expect(onChange).toHaveBeenCalledTimes(2);
+    }, 300);
+
+    jest.runAllTimers();
   });
 });
