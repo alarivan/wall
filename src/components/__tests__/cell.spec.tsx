@@ -6,7 +6,7 @@ afterEach(cleanup);
 
 describe('Cell', () => {
   it('renders correctly', () => {
-    const { asFragment, container } = render(<Cell cellColor={null} />);
+    const { asFragment, container } = render(<Cell />);
 
     expect(container.firstChild).toHaveStyleRule('background', 'transparent');
     expect(container.firstChild).toHaveStyleRule('border-color', 'transparent');

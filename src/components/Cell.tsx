@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface Props {
-  readonly cellColor: string | null;
+  readonly cellColor?: string;
   readonly border?: boolean;
 }
 

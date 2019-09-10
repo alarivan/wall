@@ -29,7 +29,7 @@ const PaletteControls: React.FC<Props> = ({
   onColorPickerClick,
 }) => {
   function handleEraserClick() {
-    onColorClick(null);
+    onColorClick(undefined);
   }
 
   return (

@@ -7,6 +7,9 @@ import {
   updateSizeAction,
   resetAction,
   initialState as realInitialState,
+  initGrid,
+  undoAction,
+  redoAction,
 } from '../gridReducer';
 import {
   TState,
@@ -24,29 +27,16 @@ import {
 } from '../../types';
 
 const initialState: TState = {
-  history: [
-    {
-      meta: {
-        columns: 2,
-        rows: 2,
-        size: 10,
-      },
-      data: Array(4).fill(null),
-    },
-  ],
+  history: [initGrid({ rows: 2, columns: 2, size: 10 }, {})],
   current: 0,
 };
 
 const initialStateWithValues: TState = {
   history: [
-    {
-      meta: {
-        columns: 2,
-        rows: 2,
-        size: 10,
-      },
-      data: ['white', 'blue', 'red', 'black'],
-    },
+    initGrid(
+      { rows: 2, columns: 2, size: 10 },
+      { '0': 'white', '1': 'blue', '2': 'red', '3': 'black' },
+    ),
   ],
   current: 0,
 };
@@ -116,7 +106,7 @@ describe('gridReducer', () => {
       history: [
         ...initialState.history,
         Object.assign({}, initialState.history[0], {
-          data: [null, 'red', null, null],
+          data: { '1': 'red' },
         }),
       ],
       current: 1,
@@ -133,7 +123,7 @@ describe('gridReducer', () => {
       history: [
         ...initialState.history,
         Object.assign({}, initialState.history[0], {
-          data: [null, null, null, null],
+          data: {},
         }),
       ],
       current: 1,
@@ -150,8 +140,12 @@ describe('gridReducer', () => {
       history: [
         ...initialStateWithValues.history,
         Object.assign({}, initialStateWithValues.history[0], {
-          data: ['white', 'blue', 'red', 'black', null, null],
-          meta: { ...initialStateWithValues.history[0].meta, rows: 3 },
+          data: { '0': 'white', '1': 'blue', '2': 'red', '3': 'black' },
+          meta: {
+            ...initialStateWithValues.history[0].meta,
+            rows: 3,
+            length: 6,
+          },
         }),
       ],
       current: 1,
@@ -167,8 +161,12 @@ describe('gridReducer', () => {
       history: [
         ...initialStateWithValues.history,
         Object.assign({}, initialStateWithValues.history[0], {
-          data: ['white', 'blue'],
-          meta: { ...initialStateWithValues.history[0].meta, rows: 1 },
+          data: { '0': 'white', '1': 'blue' },
+          meta: {
+            ...initialStateWithValues.history[0].meta,
+            rows: 1,
+            length: 2,
+          },
         }),
       ],
       current: 1,
@@ -185,8 +183,12 @@ describe('gridReducer', () => {
       history: [
         ...initialStateWithValues.history,
         Object.assign({}, initialStateWithValues.history[0], {
-          data: ['white', 'blue', null, 'red', 'black', null],
-          meta: { ...initialStateWithValues.history[0].meta, columns: 3 },
+          data: { '0': 'white', '1': 'blue', '3': 'red', '4': 'black' },
+          meta: {
+            ...initialStateWithValues.history[0].meta,
+            columns: 3,
+            length: 6,
+          },
         }),
       ],
       current: 1,
@@ -202,8 +204,12 @@ describe('gridReducer', () => {
       history: [
         ...initialStateWithValues.history,
         Object.assign({}, initialStateWithValues.history[0], {
-          data: ['white', 'red'],
-          meta: { ...initialStateWithValues.history[0].meta, columns: 1 },
+          data: { '0': 'white', '1': 'red' },
+          meta: {
+            ...initialStateWithValues.history[0].meta,
+            columns: 1,
+            length: 2,
+          },
         }),
       ],
       current: 1,
@@ -234,5 +240,26 @@ describe('gridReducer', () => {
     const updatedState: TState = gridReducer(initialState, action);
 
     expect(updatedState).toEqual(realInitialState);
+  });
+
+  it('correctly updates history', () => {
+    const updatedSizeState = gridReducer(initialState, updateSizeAction(20));
+    const updatedColumnsState = gridReducer(
+      updatedSizeState,
+      updateColumnsAction(3),
+    );
+    const updatedRowsState = gridReducer(
+      updatedColumnsState,
+      updateRowsAction(3),
+    );
+    const paintedState = gridReducer(updatedRowsState, paintAction(1, 'red'));
+    const finalState = gridReducer(paintedState, clearAction());
+
+    expect(finalState.history.length).toBe(6);
+
+    const undoState = gridReducer(finalState, undoAction());
+    expect(undoState).toEqual(Object.assign({}, finalState, { current: 4 }));
+    const redoState = gridReducer(undoState, redoAction());
+    expect(redoState).toEqual(finalState);
   });
 });

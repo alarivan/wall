@@ -1,13 +1,21 @@
-export type TColor = string | null;
+export type TColor = string | undefined;
 
-export type TGrid = {
-  meta: {
-    rows: number;
-    columns: number;
-    size: number;
-  };
-  data: TColor[];
+export type TGridData = {
+  [index: string]: TColor;
 };
+
+export type TGridMeta = {
+  rows: number;
+  columns: number;
+  size: number;
+  length: number;
+};
+
+export interface TGrid extends Iterable<TColor> {
+  meta: TGridMeta;
+  data: TGridData;
+  [Symbol.iterator]: () => Iterator<TColor>;
+}
 
 export type TState = {
   history: TGrid[];

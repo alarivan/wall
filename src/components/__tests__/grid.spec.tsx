@@ -2,17 +2,16 @@ import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { TGrid } from '../../types';
 import Grid from '../Grid';
+import { initGrid } from '../gridReducer';
 
 afterEach(cleanup);
 
-const initialState: TGrid = {
-  meta: {
-    columns: 2,
-    rows: 2,
-    size: 10,
-  },
-  data: new Array(4).fill(null),
-};
+const initialState: TGrid = initGrid({
+  columns: 2,
+  rows: 2,
+  size: 10,
+  length: 4,
+});
 
 describe('Grid', () => {
   it('renders correctly', () => {

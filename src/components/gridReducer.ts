@@ -19,12 +19,12 @@ import {
   REDO_ACTION,
   RESET,
   RESET_ACTION,
+  TGridMeta,
+  TGridData,
 } from '../types';
 
 export const initialState: TState = {
-  history: [
-    _emptyGrid({ meta: { rows: 20, columns: 20, size: 20 }, data: [] }),
-  ],
+  history: [initGrid({ rows: 20, columns: 20, size: 20 }, {})],
   current: 0,
 };
 
@@ -79,7 +79,7 @@ export const gridReducer = (state: TState, action: TAction): TState => {
       return _updateGrid(state, _paintCell(action));
 
     case CLEAR:
-      return _updateGrid(state, _emptyGrid);
+      return _updateGrid(state, _clearGrid);
 
     case UPDATE_ROWS: {
       return _updateGrid(state, _updateRows(action));
@@ -127,22 +127,16 @@ function _addToHistory(history: TGrid[], next: TGrid, state: TState): TState {
   });
 }
 
-function _emptyGrid(grid: TGrid): TGrid {
-  return Object.assign({}, grid, {
-    data: _emptyArray(grid.meta.rows * grid.meta.columns),
-  });
+function _clearGrid(grid: TGrid): TGrid {
+  return initGrid(grid.meta);
 }
 
 function _paintCell(action: PAINT_ACTION): (grid: TGrid) => TGrid {
   return function(grid: TGrid): TGrid {
-    const arr: TColor[] = [];
-    const data = arr.concat(
-      grid.data.slice(0, action.payload.index),
-      [action.payload.color],
-      grid.data.slice(action.payload.index + 1),
-    );
-
-    return Object.assign({}, grid, { data });
+    const index = action.payload.index;
+    return Object.assign({}, grid, {
+      data: { ...grid.data, [index]: action.payload.color },
+    });
   };
 }
 
@@ -156,61 +150,99 @@ function _updateSize(action: UPDATE_SIZE_ACTION): (grid: TGrid) => TGrid {
 
 function _updateRows(action: UPDATE_ROWS_ACTION): (grid: TGrid) => TGrid {
   return function(grid: TGrid): TGrid {
-    const newSize = action.payload.value * grid.meta.columns;
-    const oldSize = grid.meta.columns * grid.meta.rows;
-    const difference = newSize - oldSize;
-    const stateCopy = [...grid.data];
+    const difference: number = action.payload.value - grid.meta.rows;
 
-    let data;
-    if (difference > 0) {
-      data = stateCopy.concat(_emptyArray(difference));
-    } else {
-      data = stateCopy.splice(0, stateCopy.length - Math.abs(difference));
+    let data: TGridData = {};
+    for (let [key, value] of Object.entries(grid.data)) {
+      const intKey: number = parseInt(key);
+      const lastLineFirstIndex = grid.meta.length - grid.meta.columns;
+      if (difference > 0 || intKey < lastLineFirstIndex) {
+        data[key] = value;
+      }
     }
 
     return Object.assign({}, grid, {
       data,
-      meta: { ...grid.meta, rows: action.payload.value },
+      meta: initMeta({
+        ...grid.meta,
+        rows: action.payload.value,
+      }),
     });
   };
 }
 
 function _updateColumns(action: UPDATE_COLUMNS_ACTION): (grid: TGrid) => TGrid {
   return function(grid: TGrid): TGrid {
-    const newSize = action.payload.value * grid.meta.rows;
-    const oldSize = grid.meta.columns * grid.meta.rows;
-    const difference = newSize - oldSize;
+    const difference: number = action.payload.value - grid.meta.columns;
 
-    let data = [...grid.data];
-    if (difference > 0) {
-      for (
-        let i = action.payload.value - 1;
-        i < newSize;
-        i += action.payload.value
-      ) {
-        data.splice(
-          i,
-          0,
-          ..._emptyArray(action.payload.value - grid.meta.columns),
-        );
-      }
-    } else {
-      for (
-        let i = action.payload.value;
-        i < newSize + 1;
-        i += action.payload.value
-      ) {
-        data.splice(i, grid.meta.columns - action.payload.value);
+    let data: TGridData = {};
+    for (let [key, value] of Object.entries(grid.data)) {
+      const intKey: number = parseInt(key);
+      const line = _getLine(difference, grid.meta.columns, intKey);
+      const edge = _getEdge(difference, grid.meta.columns, line);
+      if (difference > 0 || intKey !== edge) {
+        const index: string = (intKey + (difference + line)).toString();
+        data[index] = value;
       }
     }
 
     return Object.assign({}, grid, {
       data,
-      meta: { ...grid.meta, columns: action.payload.value },
+      meta: initMeta({
+        ...grid.meta,
+        columns: action.payload.value,
+      }),
     });
   };
 }
 
-function _emptyArray(size: number): null[] {
-  return Array(size).fill(null);
+function _getLine(difference: number, columns: number, index: number): number {
+  const line = Math.floor(index / columns) - 1;
+  return difference > 0 ? line : -line;
+}
+
+function _getEdge(difference: number, columns: number, line: number): number {
+  return Math.abs(difference + line) * columns + (columns - 1);
+}
+
+export function initMeta(
+  meta: TGridMeta | { columns: number; rows: number; size: number },
+): TGridMeta {
+  return {
+    columns: meta.columns,
+    rows: meta.rows,
+    size: meta.size,
+    length: meta.columns * meta.rows,
+  };
+}
+
+export function initGrid(
+  meta: TGridMeta | { columns: number; rows: number; size: number },
+  data: TGridData = {},
+): TGrid {
+  return {
+    meta: initMeta(meta),
+    data,
+    [Symbol.iterator]() {
+      const length = this.meta.length;
+      const data = this.data;
+      let index = 0;
+
+      return {
+        next(): IteratorResult<TColor> {
+          if (index >= length) {
+            return {
+              value: undefined,
+              done: true,
+            };
+          }
+
+          return {
+            value: data[index++],
+            done: false,
+          };
+        },
+      };
+    },
+  };
 }
