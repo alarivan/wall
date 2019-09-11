@@ -155,7 +155,9 @@ function _updateRows(action: UPDATE_ROWS_ACTION): (grid: TGrid) => TGrid {
     let data: TGridData = {};
     for (let [key, value] of Object.entries(grid.data)) {
       const intKey: number = parseInt(key);
-      const lastLineFirstIndex = grid.meta.length - grid.meta.columns;
+      const lastLineFirstIndex =
+        grid.meta.length - grid.meta.columns * Math.abs(difference);
+
       if (difference > 0 || intKey < lastLineFirstIndex) {
         data[key] = value;
       }
@@ -178,10 +180,10 @@ function _updateColumns(action: UPDATE_COLUMNS_ACTION): (grid: TGrid) => TGrid {
     let data: TGridData = {};
     for (let [key, value] of Object.entries(grid.data)) {
       const intKey: number = parseInt(key);
-      const line = _getLine(difference, grid.meta.columns, intKey);
+      const line = _getLine(grid.meta.columns, intKey);
       const edge = _getEdge(difference, grid.meta.columns, line);
-      if (difference > 0 || intKey !== edge) {
-        const index: string = (intKey + (difference + line)).toString();
+      if (difference > 0 || !(intKey >= edge)) {
+        const index: string = (intKey + difference * line).toString();
         data[index] = value;
       }
     }
@@ -196,13 +198,13 @@ function _updateColumns(action: UPDATE_COLUMNS_ACTION): (grid: TGrid) => TGrid {
   };
 }
 
-function _getLine(difference: number, columns: number, index: number): number {
+function _getLine(columns: number, index: number): number {
   const line = Math.floor(index / columns) - 1;
-  return difference > 0 ? line : -line;
+  return line + 1;
 }
 
 function _getEdge(difference: number, columns: number, line: number): number {
-  return Math.abs(difference + line) * columns + (columns - 1);
+  return line * columns + (columns - Math.abs(difference));
 }
 
 export function initMeta(
