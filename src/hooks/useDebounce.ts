@@ -1,17 +1,25 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useDebounce(
   value: any,
   callback: (value: any) => void,
   delay: number,
 ) {
+  const [inputValue, setInputValue] = useState(value);
+
   useEffect(() => {
-    const handler = setTimeout(() => {
-      callback(value);
-    }, delay);
+    let handler: number | null = null;
+
+    if (inputValue !== value) {
+      handler = setTimeout(() => {
+        callback(inputValue);
+      }, delay);
+    }
 
     return () => {
-      clearTimeout(handler);
+      if (handler) clearTimeout(handler);
     };
-  }, [value]);
+  }, [inputValue, value, callback, delay]);
+
+  return [inputValue, setInputValue];
 }

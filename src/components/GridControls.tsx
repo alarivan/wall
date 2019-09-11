@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, useCallback } from 'react';
 import styled from 'styled-components';
 import GridControlsInput from './GridControlsInput';
 import {
@@ -33,17 +33,27 @@ const StyledControls = styled.div`
 
 const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
   const grid = state.history[state.current];
-  function handleRowsChange(value: number): void {
-    dispatch(updateRowsAction(value));
-  }
 
-  function handleColumnsChange(value: number): void {
-    dispatch(updateColumnsAction(value));
-  }
+  const handleRowsChange = useCallback(
+    (value: number) => {
+      dispatch(updateRowsAction(value));
+    },
+    [dispatch],
+  );
 
-  function handleSizeChange(value: number): void {
-    dispatch(updateSizeAction(value));
-  }
+  const handleColumnsChange = useCallback(
+    (value: number) => {
+      dispatch(updateColumnsAction(value));
+    },
+    [dispatch],
+  );
+
+  const handleSizeChange = useCallback(
+    (value: number) => {
+      dispatch(updateSizeAction(value));
+    },
+    [dispatch],
+  );
 
   function handleUndoClick(): void {
     dispatch(undoAction());

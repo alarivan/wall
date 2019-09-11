@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useDebounce from '../hooks/useDebounce';
 
 interface Props {
@@ -18,11 +18,10 @@ const GridControlsInput: React.FC<Props> = ({
   value,
   onChange,
 }) => {
-  const [inputValue, setInputValue] = useState<number>(value);
+  const [inputValue, setInputValue] = useDebounce(value, onChange, 200);
   useEffect(() => {
     setInputValue(value);
-  }, [value]);
-  useDebounce(inputValue, onChange, 200);
+  }, [value, setInputValue]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>): void {
     e.preventDefault();
