@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { TColor } from '../types';
 
 interface StyledGridProps {
   readonly rows: number;
   readonly columns: number;
   readonly size: number;
   readonly preview: boolean;
+  readonly background: TColor;
 }
 
 function getBorderColor({ preview }: StyledGridProps): string {
@@ -23,7 +25,7 @@ const StyledGrid = styled.div<StyledGridProps>`
   border-style: solid;
   border-width: 1px;
   border-color: ${getBorderColor};
-  background: #c2c2d1;
+  background: ${({ background }) => background};
 `;
 
 export default StyledGrid;

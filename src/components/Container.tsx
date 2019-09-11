@@ -5,6 +5,7 @@ import {
   initialState,
   clearAction,
   paintAction,
+  updateBackgroundAction,
 } from '../reducers/gridReducer';
 import { usePersistedReducer } from '../hooks/usePersistedReducer';
 import Grid from './Grid';
@@ -12,6 +13,7 @@ import PaletteControls from './PaletteControls';
 import GridControls from './GridControls';
 import { TColor } from '../types';
 import { DEFAULT_PALETTE } from '../constants';
+import { ColorResult } from 'react-color';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -25,6 +27,7 @@ const Container: React.FC = () => {
   const [current, setCurrent] = useState<TColor>(DEFAULT_PALETTE[0]);
   const [preview, setPreview] = useState<boolean>(false);
   const [colorPicker, setColorPicker] = useState<boolean>(false);
+  const currentGrid = state.history[state.current];
 
   const handleCellClick = (index: number, brush: TColor, color: TColor) => {
     if (colorPicker) {
@@ -33,6 +36,10 @@ const Container: React.FC = () => {
     } else {
       dispatch(paintAction(index, brush));
     }
+  };
+
+  const handleBackgroundClick = (colorResult: ColorResult) => {
+    dispatch(updateBackgroundAction(colorResult.hex));
   };
 
   const handlePaletteColorClick = (color: TColor): void => {
@@ -63,9 +70,11 @@ const Container: React.FC = () => {
         current={current}
         colors={DEFAULT_PALETTE}
         colorPicker={colorPicker}
+        background={currentGrid.meta.background}
         onColorClick={handlePaletteColorClick}
         onClearClick={handleClearClick}
         onColorPickerClick={handleColorPickerClick}
+        onBackgroundClick={handleBackgroundClick}
       />
     </StyledContainer>
   );

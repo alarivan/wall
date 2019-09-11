@@ -5,6 +5,8 @@ import {
   TAction,
   PAINT,
   PAINT_ACTION,
+  UPDATE_BACKGROUND,
+  UPDATE_BACKGROUND_ACTION,
   CLEAR,
   CLEAR_ACTION,
   UPDATE_ROWS,
@@ -21,10 +23,17 @@ import {
   RESET_ACTION,
   TGridMeta,
   TGridData,
+  TGridMetaInit,
 } from '../types';
+import { DEFAULT_BACKGROUND } from '../constants';
 
 export const initialState: TState = {
-  history: [initGrid({ rows: 20, columns: 20, size: 20 }, {})],
+  history: [
+    initGrid(
+      { rows: 20, columns: 20, size: 20, background: DEFAULT_BACKGROUND },
+      {},
+    ),
+  ],
   current: 0,
 };
 
@@ -32,6 +41,14 @@ export function paintAction(index: number, color: TColor): PAINT_ACTION {
   return {
     type: PAINT,
     payload: { index, color },
+  };
+}
+export function updateBackgroundAction(
+  color: TColor,
+): UPDATE_BACKGROUND_ACTION {
+  return {
+    type: UPDATE_BACKGROUND,
+    payload: { color },
   };
 }
 export function clearAction(): CLEAR_ACTION {
@@ -77,6 +94,9 @@ export const gridReducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case PAINT:
       return _updateGrid(state, _paintCell(action));
+
+    case UPDATE_BACKGROUND:
+      return _updateGrid(state, _updateBackground(action));
 
     case CLEAR:
       return _updateGrid(state, _clearGrid);
@@ -136,6 +156,19 @@ function _paintCell(action: PAINT_ACTION): (grid: TGrid) => TGrid {
     const index = action.payload.index;
     return Object.assign({}, grid, {
       data: { ...grid.data, [index]: action.payload.color },
+    });
+  };
+}
+
+function _updateBackground(
+  action: UPDATE_BACKGROUND_ACTION,
+): (grid: TGrid) => TGrid {
+  return function(grid: TGrid): TGrid {
+    return Object.assign({}, grid, {
+      meta: {
+        ...grid.meta,
+        background: action.payload.color,
+      },
     });
   };
 }
@@ -207,19 +240,18 @@ function _getEdge(difference: number, columns: number, line: number): number {
   return line * columns + (columns - Math.abs(difference));
 }
 
-export function initMeta(
-  meta: TGridMeta | { columns: number; rows: number; size: number },
-): TGridMeta {
+export function initMeta(meta: TGridMeta | TGridMetaInit): TGridMeta {
   return {
     columns: meta.columns,
     rows: meta.rows,
     size: meta.size,
     length: meta.columns * meta.rows,
+    background: meta.background,
   };
 }
 
 export function initGrid(
-  meta: TGridMeta | { columns: number; rows: number; size: number },
+  meta: TGridMeta | TGridMetaInit,
   data: TGridData = {},
 ): TGrid {
   return {

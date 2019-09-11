@@ -4,12 +4,16 @@ export type TGridData = {
   [index: string]: TColor;
 };
 
-export type TGridMeta = {
+export interface TGridMetaInit {
   rows: number;
   columns: number;
   size: number;
+  background: TColor;
+}
+
+export interface TGridMeta extends TGridMetaInit {
   length: number;
-};
+}
 
 export interface TGrid extends Iterable<TColor> {
   meta: TGridMeta;
@@ -27,6 +31,14 @@ export type PAINT_ACTION = {
   type: typeof PAINT;
   payload: {
     index: number;
+    color: TColor;
+  };
+};
+
+export const UPDATE_BACKGROUND = 'UPDATE_BACKGROUND';
+export type UPDATE_BACKGROUND_ACTION = {
+  type: typeof UPDATE_BACKGROUND;
+  payload: {
     color: TColor;
   };
 };
@@ -77,6 +89,7 @@ export type RESET_ACTION = {
 
 export type TAction =
   | PAINT_ACTION
+  | UPDATE_BACKGROUND_ACTION
   | CLEAR_ACTION
   | UPDATE_ROWS_ACTION
   | UPDATE_COLUMNS_ACTION

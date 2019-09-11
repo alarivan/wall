@@ -9,6 +9,7 @@ const props = {
   rows: 2,
   size: 10,
   preview: false,
+  background: 'red',
 };
 
 describe('StyledGrid', () => {

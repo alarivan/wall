@@ -1,6 +1,7 @@
 import {
   gridReducer,
   paintAction,
+  updateBackgroundAction,
   clearAction,
   updateRowsAction,
   updateColumnsAction,
@@ -16,6 +17,8 @@ import {
   TAction,
   PAINT,
   PAINT_ACTION,
+  UPDATE_BACKGROUND,
+  UPDATE_BACKGROUND_ACTION,
   CLEAR,
   CLEAR_ACTION,
   UPDATE_ROWS,
@@ -27,14 +30,16 @@ import {
 } from '../../types';
 
 const initialState: TState = {
-  history: [initGrid({ rows: 2, columns: 2, size: 10 }, {})],
+  history: [
+    initGrid({ rows: 2, columns: 2, size: 10, background: 'blue' }, {}),
+  ],
   current: 0,
 };
 
 const initialStateWithValues: TState = {
   history: [
     initGrid(
-      { rows: 2, columns: 2, size: 10 },
+      { rows: 2, columns: 2, size: 10, background: 'blue' },
       { '0': 'white', '1': 'blue', '2': 'red', '3': 'black' },
     ),
   ],
@@ -54,6 +59,15 @@ describe('gridReducer', () => {
     expect(action).toEqual({
       type: PAINT,
       payload: { index: 1, color: 'red' },
+    });
+  });
+
+  it('creates UPDATE_BACKGROUND_ACTION', () => {
+    const action: UPDATE_BACKGROUND_ACTION = updateBackgroundAction('blue');
+
+    expect(action).toEqual({
+      type: UPDATE_BACKGROUND,
+      payload: { color: 'blue' },
     });
   });
 
@@ -115,6 +129,22 @@ describe('gridReducer', () => {
     expect(state).toEqual(updatedState);
   });
 
+  it('updates state on "UPDATE_BACKGROUND" action ', () => {
+    const action: TAction = updateBackgroundAction('red');
+    const state: TState = gridReducer(initialState, action);
+
+    const updatedState: TState = Object.assign({}, initialState, {
+      history: [
+        ...initialState.history,
+        Object.assign({}, initialState.history[0], {
+          meta: { ...initialState.history[0].meta, background: 'red' },
+        }),
+      ],
+      current: 1,
+    });
+
+    expect(state).toEqual(updatedState);
+  });
   it('updates state on "CLEAR" action ', () => {
     const action: TAction = clearAction();
     const state: TState = gridReducer(initialState, action);
