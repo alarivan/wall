@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorPicker renders correctly 1`] = `
+<DocumentFragment>
+  .c0 {
+  position: relative;
+}
+
+<div
+    class="c0"
+  />
+</DocumentFragment>
+`;
