@@ -5,8 +5,8 @@ import {
   initialState,
   clearAction,
   paintAction,
-} from './gridReducer';
-import { usePersistedReducer } from './usePersistedReducer';
+} from '../reducers/gridReducer';
+import { usePersistedReducer } from '../hooks/usePersistedReducer';
 import Grid from './Grid';
 import PaletteControls from './PaletteControls';
 import GridControls from './GridControls';

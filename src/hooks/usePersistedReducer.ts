@@ -1,7 +1,7 @@
 import { useReducer, useEffect } from 'react';
 import { TState, TAction, TGrid } from '../types';
 import { LOCAL_STORAGE_KEY } from '../constants';
-import { initGrid } from './gridReducer';
+import { initGrid } from '../reducers/gridReducer';
 
 type PersistedReducer = (
   reducer: React.Reducer<TState, TAction>,

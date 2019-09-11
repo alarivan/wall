@@ -8,7 +8,7 @@ import {
   undoAction,
   redoAction,
   resetAction,
-} from './gridReducer';
+} from '../reducers/gridReducer';
 import { TAction, TState } from '../types';
 import {
   MIN_ROWS_VALUE,
