@@ -32,7 +32,7 @@ exports[`Grid renders correctly 1`] = `
   border-style: solid;
   border-width: 1px;
   border-color: black white white black;
-  background: #c2c2d1;
+  background: red;
 }
 
 <div

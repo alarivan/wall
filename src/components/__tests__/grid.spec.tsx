@@ -11,6 +11,7 @@ const initialState: TGrid = initGrid({
   rows: 2,
   size: 10,
   length: 4,
+  background: 'red',
 });
 
 describe('Grid', () => {
