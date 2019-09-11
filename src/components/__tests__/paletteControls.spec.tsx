@@ -8,9 +8,11 @@ const props: Props = {
   colors: ['red'],
   current: 'red',
   colorPicker: false,
+  background: 'red',
   onColorClick: jest.fn(),
   onClearClick: jest.fn(),
   onColorPickerClick: jest.fn(),
+  onBackgroundClick: jest.fn(),
 };
 
 describe('PaletteControls', () => {

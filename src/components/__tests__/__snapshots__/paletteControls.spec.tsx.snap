@@ -18,6 +18,7 @@ exports[`PaletteControls renders correctly 1`] = `
   border-radius: 50%;
   -webkit-transition: border-radius 50ms ease-in-out;
   transition: border-radius 50ms ease-in-out;
+  height: 100%;
 }
 
 .c2:hover {
@@ -30,6 +31,41 @@ exports[`PaletteControls renders correctly 1`] = `
 .c2:hover {
   border-width: 0;
   border-radius: 50%;
+}
+
+.c4 {
+  background: transparent;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0 1px 1px 0;
+  -webkit-transition: -webkit-transform 100ms ease-in-out;
+  -webkit-transition: transform 100ms ease-in-out;
+  transition: transform 100ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+  border-style: solid;
+  border-color: black;
+  border-width: 0;
+  border-radius: none;
+  -webkit-transition: border-radius 50ms ease-in-out;
+  transition: border-radius 50ms ease-in-out;
+  height: 100%;
+}
+
+.c4:hover {
+  border-width: 1px;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.c4:hover {
+  border-width: 0;
+  border-radius: none;
+}
+
+.c3 {
+  position: relative;
 }
 
 .c1 {
@@ -64,6 +100,14 @@ exports[`PaletteControls renders correctly 1`] = `
         class="c2"
         data-testid="palette-cell"
       />
+      <div
+        class="c3"
+      >
+        <div
+          class="c4"
+          style="background: red;"
+        />
+      </div>
     </div>
     <button
       data-testid="palette-controls-eraser"
@@ -80,6 +124,15 @@ exports[`PaletteControls renders correctly 1`] = `
     >
       pick color
     </button>
+    <div
+      class="c3"
+    >
+      <button
+        style="background: red;"
+      >
+        background
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

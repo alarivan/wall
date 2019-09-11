@@ -12,6 +12,7 @@ const PaletteCell = styled(Cell)<PaletteCellProps>`
   border-width: 0;
   border-radius: ${({ active }) => (active ? '50%' : 'none')};
   transition: border-radius 50ms ease-in-out;
+  height: 100%;
 
   :hover {
     border-width: 0;
