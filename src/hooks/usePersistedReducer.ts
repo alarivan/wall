@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 import { TState, TAction, TGrid } from '../types';
-import { LOCAL_STORAGE_KEY } from '../constants';
+import { LOCAL_STORAGE_KEY_EDITOR } from '../constants';
 import { initGrid } from '../reducers/gridReducer';
 
 type PersistedReducer = (
@@ -13,7 +13,9 @@ export const usePersistedReducer: PersistedReducer = (
   initialState,
 ) => {
   const init = (defaultState: TState): TState => {
-    const persisted: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const persisted: string | null = localStorage.getItem(
+      LOCAL_STORAGE_KEY_EDITOR,
+    );
     if (persisted) {
       const state = JSON.parse(persisted);
       const history = state.history.map((i: TGrid) => initGrid(i.meta, i.data));
@@ -25,7 +27,7 @@ export const usePersistedReducer: PersistedReducer = (
   const [state, dispatch] = useReducer(reducer, initialState, init);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(LOCAL_STORAGE_KEY_EDITOR, JSON.stringify(state));
   }, [state]);
 
   return [state, dispatch];
