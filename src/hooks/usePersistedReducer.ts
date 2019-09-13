@@ -1,34 +1,27 @@
 import { useReducer, useEffect } from 'react';
-import { TState, TAction, TGrid } from '../types';
-import { LOCAL_STORAGE_KEY_EDITOR } from '../constants';
-import { initGrid } from '../reducers/gridReducer';
 
-type PersistedReducer = (
-  reducer: React.Reducer<TState, TAction>,
-  initialState: TState,
-) => [TState, React.Dispatch<TAction>];
+export function usePersistedReducer<S, A>(
+  reducer: React.Reducer<S, A>,
+  initialState: S,
+  localStorageKey: string,
+  init: (state: S) => S,
+): [S, React.Dispatch<A>] {
+  const _init = (defaultState: S): S => {
+    const persisted: string | null = localStorage.getItem(localStorageKey);
 
-export const usePersistedReducer: PersistedReducer = (
-  reducer,
-  initialState,
-) => {
-  const init = (defaultState: TState): TState => {
-    const persisted: string | null = localStorage.getItem(
-      LOCAL_STORAGE_KEY_EDITOR,
-    );
     if (persisted) {
       const state = JSON.parse(persisted);
-      const history = state.history.map((i: TGrid) => initGrid(i.meta, i.data));
-      return Object.assign({}, state, { history });
+      return init(state);
     }
+
     return defaultState;
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState, init);
+  const [state, dispatch] = useReducer(reducer, initialState, _init);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY_EDITOR, JSON.stringify(state));
-  }, [state]);
+    localStorage.setItem(localStorageKey, JSON.stringify(state));
+  }, [state, localStorageKey]);
 
   return [state, dispatch];
-};
+}

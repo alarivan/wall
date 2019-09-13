@@ -7,13 +7,13 @@ import {
   paintAction,
   updateBackgroundAction,
 } from '../reducers/gridReducer';
-import { usePersistedReducer } from '../hooks/usePersistedReducer';
 import Grid from './Grid';
 import PaletteControls from './PaletteControls';
 import GridControls from './GridControls';
 import { TColor } from '../types';
 import { DEFAULT_PALETTE } from '../constants';
 import { ColorResult } from 'react-color';
+import { useGridPersistedReducer } from '../hooks/useGridPersistedReducer';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const StyledContainer = styled.div`
 `;
 
 const Container: React.FC = () => {
-  const [state, dispatch] = usePersistedReducer(gridReducer, initialState);
+  const [state, dispatch] = useGridPersistedReducer(gridReducer, initialState);
   const [current, setCurrent] = useState<TColor>(DEFAULT_PALETTE[0]);
   const [preview, setPreview] = useState<boolean>(false);
   const [colorPicker, setColorPicker] = useState<boolean>(false);
