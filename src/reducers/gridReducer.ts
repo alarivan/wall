@@ -1,3 +1,4 @@
+import uuidv4 from 'uuidv4';
 import {
   TState,
   TGrid,
@@ -242,6 +243,7 @@ function _getEdge(difference: number, columns: number, line: number): number {
 
 export function initMeta(meta: TGridMeta | TGridMetaInit): TGridMeta {
   return {
+    id: meta.id || uuidv4(),
     columns: meta.columns,
     rows: meta.rows,
     size: meta.size,

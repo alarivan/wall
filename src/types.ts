@@ -5,6 +5,7 @@ export type TGridData = {
 };
 
 export interface TGridMetaInit {
+  id?: string;
   rows: number;
   columns: number;
   size: number;
@@ -12,6 +13,7 @@ export interface TGridMetaInit {
 }
 
 export interface TGridMeta extends TGridMetaInit {
+  id: string;
   length: number;
 }
 
