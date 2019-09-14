@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
-  gridReducer,
-  initialState,
   clearAction,
   paintAction,
   updateBackgroundAction,
@@ -10,10 +8,14 @@ import {
 import Grid from './Grid';
 import PaletteControls from './PaletteControls';
 import GridControls from './GridControls';
-import { TColor } from '../types';
+import { TColor, TState, TAction } from '../types';
 import { DEFAULT_PALETTE } from '../constants';
 import { ColorResult } from 'react-color';
-import { useGridPersistedReducer } from '../hooks/useGridPersistedReducer';
+
+interface Props {
+  state: TState;
+  dispatch: React.Dispatch<TAction>;
+}
 
 const StyledContainer = styled.div`
   display: flex;
@@ -22,8 +24,7 @@ const StyledContainer = styled.div`
   height: 100vh;
 `;
 
-const Container: React.FC = () => {
-  const [state, dispatch] = useGridPersistedReducer(gridReducer, initialState);
+const Container: React.FC<Props> = ({ state, dispatch }) => {
   const [current, setCurrent] = useState<TColor>(DEFAULT_PALETTE[0]);
   const [preview, setPreview] = useState<boolean>(false);
   const [colorPicker, setColorPicker] = useState<boolean>(false);
