@@ -11,6 +11,7 @@ import {
   initGrid,
   undoAction,
   redoAction,
+  setStateAction,
 } from '../gridReducer';
 import {
   TState,
@@ -27,6 +28,8 @@ import {
   UPDATE_COLUMNS_ACTION,
   UPDATE_SIZE_ACTION,
   UPDATE_SIZE,
+  SET_STATE_ACTION,
+  SET_STATE,
 } from '../../types';
 
 const initialState: TState = {
@@ -108,6 +111,17 @@ describe('gridReducer', () => {
       type: UPDATE_SIZE,
       payload: {
         value: 3,
+      },
+    });
+  });
+
+  it('creates SET_STATE', () => {
+    const action: SET_STATE_ACTION = setStateAction(initialState);
+
+    expect(action).toEqual({
+      type: SET_STATE,
+      payload: {
+        value: initialState,
       },
     });
   });
@@ -291,5 +305,12 @@ describe('gridReducer', () => {
     expect(undoState).toEqual(Object.assign({}, finalState, { current: 4 }));
     const redoState = gridReducer(undoState, redoAction());
     expect(redoState).toEqual(finalState);
+  });
+
+  it('updates state on "SET_STATE" action', () => {
+    const action: SET_STATE_ACTION = setStateAction(initialStateWithValues);
+    const updatedState: TState = gridReducer(initialState, action);
+
+    expect(updatedState).toEqual(initialStateWithValues);
   });
 });

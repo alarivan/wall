@@ -89,6 +89,14 @@ export type RESET_ACTION = {
   type: typeof RESET;
 };
 
+export const SET_STATE = 'SET_STATE';
+export type SET_STATE_ACTION = {
+  type: typeof SET_STATE;
+  payload: {
+    value: TState;
+  };
+};
+
 export type TAction =
   | PAINT_ACTION
   | UPDATE_BACKGROUND_ACTION
@@ -99,4 +107,5 @@ export type TAction =
   | UNDO_ACTION
   | REDO_ACTION
   | RESET_ACTION
+  | SET_STATE_ACTION
   | { type: 'EMPTY' };

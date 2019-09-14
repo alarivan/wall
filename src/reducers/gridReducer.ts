@@ -25,6 +25,8 @@ import {
   TGridMeta,
   TGridData,
   TGridMetaInit,
+  SET_STATE_ACTION,
+  SET_STATE,
 } from '../types';
 import { DEFAULT_BACKGROUND } from '../constants';
 
@@ -87,6 +89,14 @@ export function resetAction(): RESET_ACTION {
     type: RESET,
   };
 }
+export function setStateAction(value: TState): SET_STATE_ACTION {
+  return {
+    type: SET_STATE,
+    payload: {
+      value,
+    },
+  };
+}
 
 export const gridReducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
@@ -124,6 +134,9 @@ export const gridReducer = (state: TState, action: TAction): TState => {
 
     case RESET:
       return initialState;
+
+    case SET_STATE:
+      return action.payload.value;
 
     default:
       return state;
