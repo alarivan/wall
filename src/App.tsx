@@ -9,12 +9,12 @@ const App: React.FC = () => {
   return (
     <GalleryProvider>
       <Link to='/'>Home</Link>
-      <Link to='/editor'>New</Link>
+      <Link to='/editor/new'>New</Link>
 
       <Router>
         <Index path='/' />
         <Editor path='/editor/:id' />
-        <Editor path='/editor' />
+        <Editor path='/editor/new' />
         <NotFound default />
       </Router>
     </GalleryProvider>

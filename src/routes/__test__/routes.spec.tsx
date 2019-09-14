@@ -26,7 +26,7 @@ describe('Routes', () => {
     const appContainer = container;
     expect(appContainer.innerHTML).toMatch('Home');
 
-    await navigate('/editor');
+    await navigate('/editor/new');
     expect(container.innerHTML).toMatch('Rows');
   });
 
