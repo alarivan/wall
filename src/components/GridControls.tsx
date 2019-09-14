@@ -1,4 +1,4 @@
-import React, { Dispatch, useCallback } from 'react';
+import React, { Dispatch, useCallback, useContext } from 'react';
 import styled from 'styled-components';
 import GridControlsInput from './GridControlsInput';
 import {
@@ -18,6 +18,9 @@ import {
   MIN_WIDTH_VALUE,
   MAX_WIDTH_VALUE,
 } from '../constants';
+import { GalleryContext } from '../GalleryContext';
+import { saveAction } from '../reducers/gallery/actions';
+import { navigate } from '@reach/router';
 
 interface Props {
   state: TState;
@@ -32,6 +35,7 @@ const StyledControls = styled.div`
 `;
 
 const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
+  const { dispatch: galleryDispatch } = useContext(GalleryContext);
   const grid = state.history[state.current];
 
   const handleRowsChange = useCallback(
@@ -65,8 +69,14 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
     dispatch(resetAction());
   }
 
+  function handleSave() {
+    galleryDispatch(saveAction(grid));
+    navigate('/');
+  }
+
   return (
     <StyledControls>
+      <button onClick={handleSave}>Save</button>
       <button onClick={onPreviewClick}>preview</button>
       <button onClick={handleUndoClick}>undo</button>
       <button onClick={handleRedoClick}>redo</button>
