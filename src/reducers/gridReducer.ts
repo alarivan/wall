@@ -28,15 +28,12 @@ import {
 } from '../types';
 import { DEFAULT_BACKGROUND } from '../constants';
 
-export const initialState: TState = {
-  history: [
-    initGrid(
-      { rows: 20, columns: 20, size: 20, background: DEFAULT_BACKGROUND },
-      {},
-    ),
-  ],
-  current: 0,
-};
+export const initialState: TState = initState(
+  initGrid(
+    { rows: 20, columns: 20, size: 20, background: DEFAULT_BACKGROUND },
+    {},
+  ),
+);
 
 export function paintAction(index: number, color: TColor): PAINT_ACTION {
   return {
@@ -280,5 +277,12 @@ export function initGrid(
         },
       };
     },
+  };
+}
+
+export function initState(grid: TGrid): TState {
+  return {
+    history: [grid],
+    current: 0,
   };
 }
