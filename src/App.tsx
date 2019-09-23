@@ -7,20 +7,23 @@ import { GalleryProvider } from './GalleryContext';
 import Header from './components/Header';
 import { ThemeProvider } from 'styled-components';
 import theme from './themes/default';
+import GlobalStyles from './globalStyles';
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <GalleryProvider>
+      <>
+        <GlobalStyles />
         <Header />
-
-        <Router>
-          <Index path='/' />
-          <Editor path='/editor/:id' />
-          <Editor path='/editor/new' />
-          <NotFound default />
-        </Router>
-      </GalleryProvider>
+        <GalleryProvider>
+          <Router>
+            <Index path='/' />
+            <Editor path='/editor/:id' />
+            <Editor path='/editor/new' />
+            <NotFound default />
+          </Router>
+        </GalleryProvider>
+      </>
     </ThemeProvider>
   );
 };
