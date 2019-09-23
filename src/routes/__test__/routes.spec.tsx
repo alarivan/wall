@@ -20,14 +20,15 @@ function renderWithRouter(
 describe('Routes', () => {
   test('full app rendering/navigating', async () => {
     const {
-      container,
+      getByText,
       history: { navigate },
     } = renderWithRouter(<App />);
-    const appContainer = container;
-    expect(appContainer.innerHTML).toMatch('Home');
+
+    expect(getByText(/gallery/i)).toHaveAttribute('aria-current', 'page');
 
     await navigate('/editor/new');
-    expect(container.innerHTML).toMatch('Rows');
+
+    expect(getByText(/new/i)).toHaveAttribute('aria-current', 'page');
   });
 
   test('landing on a bad page', () => {
