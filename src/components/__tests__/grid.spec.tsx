@@ -2,7 +2,7 @@ import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { TGrid } from '../../types';
 import Grid from '../Grid';
-import { initGrid } from '../../reducers/gridReducer';
+import { initGrid } from '../../reducers/editor/utils';
 
 afterEach(cleanup);
 

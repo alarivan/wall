@@ -8,7 +8,7 @@ import {
   DELETE_ACTION,
   DELETE,
 } from '../gallery/types';
-import { initGrid } from '../gridReducer';
+import { initGrid } from '../editor/utils';
 import { TGridData } from '../../types';
 
 const createGrid = (id: string, data: TGridData) =>

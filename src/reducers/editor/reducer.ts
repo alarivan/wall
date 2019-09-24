@@ -1,34 +1,25 @@
-import uuidv4 from 'uuidv4';
 import {
   TState,
-  TGrid,
-  TColor,
   TAction,
   PAINT,
-  PAINT_ACTION,
   UPDATE_BACKGROUND,
-  UPDATE_BACKGROUND_ACTION,
   CLEAR,
-  CLEAR_ACTION,
   UPDATE_ROWS,
-  UPDATE_ROWS_ACTION,
   UPDATE_COLUMNS,
-  UPDATE_COLUMNS_ACTION,
-  UPDATE_SIZE_ACTION,
   UPDATE_SIZE,
   UNDO,
-  UNDO_ACTION,
   REDO,
-  REDO_ACTION,
   RESET,
-  RESET_ACTION,
-  TGridMeta,
-  TGridData,
-  TGridMetaInit,
-  SET_STATE_ACTION,
   SET_STATE,
-} from '../types';
-import { DEFAULT_BACKGROUND } from '../constants';
+  PAINT_ACTION,
+  UPDATE_BACKGROUND_ACTION,
+  UPDATE_SIZE_ACTION,
+  UPDATE_ROWS_ACTION,
+  UPDATE_COLUMNS_ACTION,
+} from './types';
+import { initState, initGrid, initMeta } from './utils';
+import { DEFAULT_BACKGROUND } from '../../constants';
+import { TGrid, TGridData } from '../../types';
 
 export const initialState: TState = initState(
   initGrid(
@@ -36,67 +27,6 @@ export const initialState: TState = initState(
     {},
   ),
 );
-
-export function paintAction(index: number, color: TColor): PAINT_ACTION {
-  return {
-    type: PAINT,
-    payload: { index, color },
-  };
-}
-export function updateBackgroundAction(
-  color: TColor,
-): UPDATE_BACKGROUND_ACTION {
-  return {
-    type: UPDATE_BACKGROUND,
-    payload: { color },
-  };
-}
-export function clearAction(): CLEAR_ACTION {
-  return {
-    type: CLEAR,
-  };
-}
-export function updateRowsAction(value: number): UPDATE_ROWS_ACTION {
-  return {
-    type: UPDATE_ROWS,
-    payload: { value },
-  };
-}
-export function updateColumnsAction(value: number): UPDATE_COLUMNS_ACTION {
-  return {
-    type: UPDATE_COLUMNS,
-    payload: { value },
-  };
-}
-export function updateSizeAction(value: number): UPDATE_SIZE_ACTION {
-  return {
-    type: UPDATE_SIZE,
-    payload: { value },
-  };
-}
-export function undoAction(): UNDO_ACTION {
-  return {
-    type: UNDO,
-  };
-}
-export function redoAction(): REDO_ACTION {
-  return {
-    type: REDO,
-  };
-}
-export function resetAction(): RESET_ACTION {
-  return {
-    type: RESET,
-  };
-}
-export function setStateAction(value: TState): SET_STATE_ACTION {
-  return {
-    type: SET_STATE,
-    payload: {
-      value,
-    },
-  };
-}
 
 export const gridReducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
@@ -249,53 +179,4 @@ function _getLine(columns: number, index: number): number {
 
 function _getEdge(difference: number, columns: number, line: number): number {
   return line * columns + (columns - Math.abs(difference));
-}
-
-export function initMeta(meta: TGridMeta | TGridMetaInit): TGridMeta {
-  return {
-    id: meta.id || uuidv4(),
-    columns: meta.columns,
-    rows: meta.rows,
-    size: meta.size,
-    length: meta.columns * meta.rows,
-    background: meta.background,
-  };
-}
-
-export function initGrid(
-  meta: TGridMeta | TGridMetaInit,
-  data: TGridData = {},
-): TGrid {
-  return {
-    meta: initMeta(meta),
-    data,
-    [Symbol.iterator]() {
-      const length = this.meta.length;
-      const data = this.data;
-      let index = 0;
-
-      return {
-        next(): IteratorResult<TColor> {
-          if (index >= length) {
-            return {
-              value: undefined,
-              done: true,
-            };
-          }
-
-          return {
-            value: data[index++],
-            done: false,
-          };
-        },
-      };
-    },
-  };
-}
-
-export function initState(grid: TGrid): TState {
-  return {
-    history: [grid],
-    current: 0,
-  };
 }

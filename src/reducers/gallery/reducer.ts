@@ -1,5 +1,5 @@
 import { TGalleryAction, TGalleryState, SAVE, DELETE } from './types';
-import { initGrid } from '../gridReducer';
+import { initGrid } from '../editor/utils';
 import { Map } from 'immutable';
 import { DEFAULT_GALLERY_ITEM } from '../../constants';
 

@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { usePersistedReducer } from './usePersistedReducer';
-import { initGrid } from '../reducers/gridReducer';
+import { initGrid } from '../reducers/editor/utils';
 import { LOCAL_STORAGE_KEY_GALLERY } from '../constants';
 import { TGalleryState, TGalleryAction } from '../reducers/gallery/types';
 

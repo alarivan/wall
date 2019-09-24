@@ -8,8 +8,8 @@ import {
   undoAction,
   redoAction,
   resetAction,
-} from '../reducers/gridReducer';
-import { TAction, TState } from '../types';
+} from '../reducers/editor/actions';
+import { TState, TAction } from '../reducers/editor/types';
 import {
   MIN_ROWS_VALUE,
   MAX_ROWS_VALUE,

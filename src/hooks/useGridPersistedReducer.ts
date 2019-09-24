@@ -1,6 +1,7 @@
 import { usePersistedReducer } from './usePersistedReducer';
-import { TState, TAction, TGrid } from '../types';
-import { initGrid } from '../reducers/gridReducer';
+import { TGrid } from '../types';
+import { TState, TAction } from '../reducers/editor/types';
+import { initGrid } from '../reducers/editor/utils';
 import { LOCAL_STORAGE_KEY_EDITOR } from '../constants';
 
 type PersistedReducer = (

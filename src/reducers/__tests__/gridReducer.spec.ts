@@ -1,36 +1,38 @@
 import {
+  TState,
+  PAINT_ACTION,
+  PAINT,
+  UPDATE_BACKGROUND_ACTION,
+  UPDATE_BACKGROUND,
+  CLEAR_ACTION,
+  CLEAR,
+  UPDATE_ROWS_ACTION,
+  UPDATE_ROWS,
+  UPDATE_COLUMNS_ACTION,
+  UPDATE_COLUMNS,
+  UPDATE_SIZE_ACTION,
+  UPDATE_SIZE,
+  SET_STATE_ACTION,
+  SET_STATE,
+  TAction,
+} from '../editor/types';
+import { initGrid } from '../editor/utils';
+import {
   gridReducer,
+  initialState as realInitialState,
+} from '../editor/reducer';
+import {
   paintAction,
   updateBackgroundAction,
   clearAction,
   updateRowsAction,
   updateColumnsAction,
   updateSizeAction,
+  setStateAction,
   resetAction,
-  initialState as realInitialState,
-  initGrid,
   undoAction,
   redoAction,
-  setStateAction,
-} from '../gridReducer';
-import {
-  TState,
-  TAction,
-  PAINT,
-  PAINT_ACTION,
-  UPDATE_BACKGROUND,
-  UPDATE_BACKGROUND_ACTION,
-  CLEAR,
-  CLEAR_ACTION,
-  UPDATE_ROWS,
-  UPDATE_ROWS_ACTION,
-  UPDATE_COLUMNS,
-  UPDATE_COLUMNS_ACTION,
-  UPDATE_SIZE_ACTION,
-  UPDATE_SIZE,
-  SET_STATE_ACTION,
-  SET_STATE,
-} from '../../types';
+} from '../editor/actions';
 
 const initialState: TState = {
   history: [

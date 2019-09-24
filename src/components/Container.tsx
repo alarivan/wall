@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-  clearAction,
-  paintAction,
-  updateBackgroundAction,
-} from '../reducers/gridReducer';
 import Grid from './Grid';
 import PaletteControls from './PaletteControls';
 import GridControls from './GridControls';
-import { TColor, TState, TAction } from '../types';
+import { TState, TAction } from '../reducers/editor/types';
+import { TColor } from '../types';
 import { DEFAULT_PALETTE } from '../constants';
 import { ColorResult } from 'react-color';
+import {
+  paintAction,
+  updateBackgroundAction,
+  clearAction,
+} from '../reducers/editor/actions';
 
 interface Props {
   state: TState;
