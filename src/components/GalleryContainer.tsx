@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { GalleryContext } from '../GalleryContext';
 import { TGrid } from '../types';
 import { deleteAction } from '../reducers/gallery/actions';
-import { Link } from '@reach/router';
+import ActionPanel from './Gallery/Item/ActionPanel';
 
 interface Props {}
 
@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 `;
 
 const GalleryContainer: React.FC<Props> = () => {
@@ -26,9 +27,10 @@ const GalleryContainer: React.FC<Props> = () => {
     <StyledContainer>
       {state.valueSeq().map(grid => (
         <div key={grid.meta.id}>
-          <button onClick={() => handleDelete(grid)}>delete</button>
-          <Link to={`editor/${grid.meta.id}`}>Edit</Link>
-
+          <ActionPanel
+            gridId={grid.meta.id}
+            onDelete={() => handleDelete(grid)}
+          />
           <SimpleGrid grid={grid} preview={true} />
         </div>
       ))}
