@@ -16,6 +16,10 @@ const StyledContainer = styled.div`
   padding: 1rem;
 `;
 
+const StyledGalleryItem = styled.div`
+  margin-bottom: 1rem;
+`;
+
 const GalleryContainer: React.FC<Props> = () => {
   const { state, dispatch } = useContext(GalleryContext);
 
@@ -26,13 +30,13 @@ const GalleryContainer: React.FC<Props> = () => {
   return (
     <StyledContainer>
       {state.valueSeq().map(grid => (
-        <div key={grid.meta.id}>
+        <StyledGalleryItem key={grid.meta.id}>
           <ActionPanel
             gridId={grid.meta.id}
             onDelete={() => handleDelete(grid)}
           />
           <SimpleGrid grid={grid} preview={true} />
-        </div>
+        </StyledGalleryItem>
       ))}
     </StyledContainer>
   );
