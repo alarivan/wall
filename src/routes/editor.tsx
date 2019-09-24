@@ -26,7 +26,7 @@ const Editor: React.FC<Props> = ({ id }) => {
 
   useEffect(() => {
     dispatch(setStateAction(_getGrid(id, galleryState)));
-  }, [id]);
+  }, [id, galleryState]);
 
   return <Container state={state} dispatch={dispatch} />;
 };
