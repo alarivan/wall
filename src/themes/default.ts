@@ -4,4 +4,5 @@ export default {
   text: '#F2A697',
   secondary: '#4D71C2',
   secondaryText: '4D71C2',
+  error: '#E94D4F',
 };

@@ -7,5 +7,6 @@ declare module 'styled-components' {
     text: string;
     secondary: string;
     secondaryText: string;
+    error: string;
   }
 }
