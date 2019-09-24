@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  padding: 1rem;
 `;
 
 const Container: React.FC<Props> = ({ state, dispatch }) => {
