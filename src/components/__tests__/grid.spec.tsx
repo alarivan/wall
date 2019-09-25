@@ -7,6 +7,7 @@ import { initGrid } from '../../reducers/editor/utils';
 afterEach(cleanup);
 
 const initialState: TGrid = initGrid({
+  id: 'fake_id',
   columns: 2,
   rows: 2,
   size: 10,
