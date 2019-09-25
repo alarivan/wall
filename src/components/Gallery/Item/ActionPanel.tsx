@@ -1,6 +1,7 @@
 import React from 'react';
 import { navigate } from '@reach/router';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { darken } from 'polished';
 
 const StyledActionPanel = styled.div`
   display: flex;
@@ -8,15 +9,31 @@ const StyledActionPanel = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-const StyledActionPanelButton = styled.button`
+interface ActionPanelButtonProps {
+  danger?: boolean;
+}
+const ActionPanelButton = styled.button<ActionPanelButtonProps>`
+  font-weight: 500;
   cursor: pointer;
   border: none;
   padding: 0.5rem 1rem;
   transition: background-color 100ms ease-in-out;
-`;
+  color: #fff;
 
-const StyledActionPanelButtonDelete = styled(StyledActionPanelButton)`
-  background-color: ${({ theme }) => theme.error};
+  background-color: ${({ theme }) => theme.secondary};
+  :hover {
+    background-color: ${({ theme }) => darken(0.2, theme.secondary)};
+  }
+
+  ${({ danger }) =>
+    danger &&
+    css`
+      background-color: ${({ theme }) => theme.error};
+
+      :hover {
+        background-color: ${({ theme }) => darken(0.1, theme.error)};
+      }
+    `}
 `;
 
 interface Props {
@@ -27,14 +44,12 @@ interface Props {
 const ActionPanel: React.FC<Props> = ({ gridId, onDelete }) => {
   return (
     <StyledActionPanel>
-      <StyledActionPanelButtonDelete onClick={onDelete}>
+      <ActionPanelButton danger onClick={onDelete}>
         Delete
-      </StyledActionPanelButtonDelete>
-      <StyledActionPanelButton
-        onClick={() => navigate(`editor/${gridId}`)}
-      >
+      </ActionPanelButton>
+      <ActionPanelButton onClick={() => navigate(`editor/${gridId}`)}>
         Edit
-      </StyledActionPanelButton>
+      </ActionPanelButton>
     </StyledActionPanel>
   );
 };
