@@ -10,7 +10,6 @@ import { ColorResult } from 'react-color';
 import {
   paintAction,
   updateBackgroundAction,
-  clearAction,
 } from '../reducers/editor/actions';
 
 interface Props {
@@ -51,8 +50,6 @@ const Container: React.FC<Props> = ({ state, dispatch }) => {
 
   const handlePreviewClick = (): void => setPreview(!preview);
 
-  const handleClearClick = (): void => dispatch(clearAction());
-
   const handleColorPickerClick = (): void => setColorPicker(!colorPicker);
 
   return (
@@ -74,7 +71,6 @@ const Container: React.FC<Props> = ({ state, dispatch }) => {
         colorPicker={colorPicker}
         background={currentGrid.meta.background}
         onColorClick={handlePaletteColorClick}
-        onClearClick={handleClearClick}
         onColorPickerClick={handleColorPickerClick}
         onBackgroundClick={handleBackgroundClick}
       />

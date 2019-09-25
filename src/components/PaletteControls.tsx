@@ -18,7 +18,6 @@ export interface Props {
   colorPicker: boolean;
   background: TColor;
   onColorClick: (color: TColor) => void;
-  onClearClick: () => void;
   onColorPickerClick: () => void;
   onBackgroundClick: (colorResult: ColorResult) => void;
 }
@@ -37,7 +36,6 @@ const PaletteControls: React.FC<Props> = ({
   colorPicker,
   background,
   onColorClick,
-  onClearClick,
   onColorPickerClick,
   onBackgroundClick,
 }) => {
@@ -53,12 +51,6 @@ const PaletteControls: React.FC<Props> = ({
         onClick={handleEraserClick}
       >
         <FontAwesomeIcon icon={faEraser} />
-      </PaletteControlsButton>
-      <PaletteControlsButton
-        data-testid='palette-controls-clear'
-        onClick={onClearClick}
-      >
-        clear
       </PaletteControlsButton>
       <PaletteControlsButton
         data-testid='palette-controls-color-picker'

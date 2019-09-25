@@ -8,6 +8,7 @@ import {
   undoAction,
   redoAction,
   resetAction,
+  clearAction,
 } from '../reducers/editor/actions';
 import { TState, TAction } from '../reducers/editor/types';
 import {
@@ -69,6 +70,9 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
   function handleResetClick(): void {
     dispatch(resetAction());
   }
+  function handleClearClick(): void {
+    dispatch(clearAction());
+  }
 
   function handleSave() {
     galleryDispatch(saveAction(grid));
@@ -81,6 +85,7 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
       <GridControlsButton onClick={onPreviewClick}>preview</GridControlsButton>
       <GridControlsButton onClick={handleUndoClick}>undo</GridControlsButton>
       <GridControlsButton onClick={handleRedoClick}>redo</GridControlsButton>
+      <GridControlsButton onClick={handleClearClick}>clear</GridControlsButton>
       <GridControlsInput
         label='Rows'
         min={MIN_ROWS_VALUE}

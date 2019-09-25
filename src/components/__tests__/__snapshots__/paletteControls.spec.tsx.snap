@@ -167,12 +167,6 @@ exports[`PaletteControls renders correctly 1`] = `
     </button>
     <button
       class="c5"
-      data-testid="palette-controls-clear"
-    >
-      clear
-    </button>
-    <button
-      class="c5"
       data-testid="palette-controls-color-picker"
     >
       <svg

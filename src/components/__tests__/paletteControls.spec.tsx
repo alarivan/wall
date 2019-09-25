@@ -12,7 +12,6 @@ const props: Props = {
   colorPicker: false,
   background: 'red',
   onColorClick: jest.fn(),
-  onClearClick: jest.fn(),
   onColorPickerClick: jest.fn(),
   onBackgroundClick: jest.fn(),
 };
@@ -48,11 +47,9 @@ describe('PaletteControls', () => {
     const { getByTestId } = render(withTheme(props));
 
     fireEvent.click(getByTestId('palette-controls-eraser'));
-    fireEvent.click(getByTestId('palette-controls-clear'));
     fireEvent.click(getByTestId('palette-controls-color-picker'));
 
     expect(props.onColorClick).toHaveBeenCalledTimes(1);
-    expect(props.onClearClick).toHaveBeenCalledTimes(1);
     expect(props.onColorPickerClick).toHaveBeenCalledTimes(1);
   });
 });
