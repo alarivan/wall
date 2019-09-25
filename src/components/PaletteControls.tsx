@@ -4,6 +4,13 @@ import Palette from './Palette';
 import { TColor } from '../types';
 import ColorPicker from './ColorPicker';
 import { ColorResult } from 'react-color';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEraser,
+  faFill,
+  faEyeDropper,
+} from '@fortawesome/free-solid-svg-icons';
+import PaletteControlsButton from './PaletteControls/Button';
 
 export interface Props {
   colors: TColor[];
@@ -41,21 +48,31 @@ const PaletteControls: React.FC<Props> = ({
   return (
     <StyledPaletteControls>
       <Palette onColorClick={onColorClick} current={current} colors={colors} />
-      <button data-testid='palette-controls-eraser' onClick={handleEraserClick}>
-        eraser
-      </button>
-      <button data-testid='palette-controls-clear' onClick={onClearClick}>
+      <PaletteControlsButton
+        data-testid='palette-controls-eraser'
+        onClick={handleEraserClick}
+      >
+        <FontAwesomeIcon icon={faEraser} />
+      </PaletteControlsButton>
+      <PaletteControlsButton
+        data-testid='palette-controls-clear'
+        onClick={onClearClick}
+      >
         clear
-      </button>
-      <button
+      </PaletteControlsButton>
+      <PaletteControlsButton
         data-testid='palette-controls-color-picker'
         disabled={colorPicker}
         onClick={onColorPickerClick}
       >
-        pick color
-      </button>
+        <FontAwesomeIcon icon={faEyeDropper} />
+      </PaletteControlsButton>
       <ColorPicker
-        trigger={props => <button {...props}>background</button>}
+        trigger={props => (
+          <PaletteControlsButton bgColor={background} {...props}>
+            <FontAwesomeIcon icon={faFill} />
+          </PaletteControlsButton>
+        )}
         color={background}
         onChangeComplete={onBackgroundClick}
       />

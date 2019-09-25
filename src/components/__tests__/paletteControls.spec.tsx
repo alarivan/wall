@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import PaletteControls, { Props } from '../PaletteControls';
+import { ThemeProvider } from 'styled-components';
+import theme from '../../themes/default';
 
 afterEach(cleanup);
 
@@ -15,9 +17,17 @@ const props: Props = {
   onBackgroundClick: jest.fn(),
 };
 
+function withTheme(props: Props) {
+  return (
+    <ThemeProvider theme={theme}>
+      <PaletteControls {...props} />
+    </ThemeProvider>
+  );
+}
+
 describe('PaletteControls', () => {
   it('renders correctly', () => {
-    const { asFragment, getByTestId } = render(<PaletteControls {...props} />);
+    const { asFragment, getByTestId } = render(withTheme(props));
 
     expect(getByTestId('palette-controls-color-picker')).not.toHaveAttribute(
       'disabled',
@@ -27,9 +37,7 @@ describe('PaletteControls', () => {
   });
 
   it('disables color picker when it is active', () => {
-    const { getByTestId } = render(
-      <PaletteControls {...props} colorPicker={true} />,
-    );
+    const { getByTestId } = render(withTheme({ ...props, colorPicker: true }));
 
     expect(getByTestId('palette-controls-color-picker')).toHaveAttribute(
       'disabled',
@@ -37,7 +45,7 @@ describe('PaletteControls', () => {
   });
 
   it('calls onClick on correct buttons', () => {
-    const { getByTestId } = render(<PaletteControls {...props} />);
+    const { getByTestId } = render(withTheme(props));
 
     fireEvent.click(getByTestId('palette-controls-eraser'));
     fireEvent.click(getByTestId('palette-controls-clear'));
