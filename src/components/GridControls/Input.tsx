@@ -1,5 +1,24 @@
 import React, { useEffect } from 'react';
-import useDebounce from '../hooks/useDebounce';
+import useDebounce from '../../hooks/useDebounce';
+import styled from 'styled-components';
+
+const Styled = styled.div`
+  margin-bottom: 0.25rem;
+  text-align: center;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+
+  label {
+    display: block;
+    background-color: lightgray;
+    padding: 0.25rem;
+    font-weight: 500;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.25rem;
+  }
+`;
 
 interface Props {
   label: string;
@@ -33,7 +52,7 @@ const GridControlsInput: React.FC<Props> = ({
   }
 
   return (
-    <>
+    <Styled>
       <label>{label}</label>
       <input
         data-testid='grid-controls-input'
@@ -44,7 +63,7 @@ const GridControlsInput: React.FC<Props> = ({
         value={inputValue}
         onChange={handleChange}
       />
-    </>
+    </Styled>
   );
 };
 

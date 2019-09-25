@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
-import GridControlsInput from '../GridControlsInput';
+import GridControlsInput from '../GridControls/Input';
 
 afterEach(cleanup);
 

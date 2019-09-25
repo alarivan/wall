@@ -1,6 +1,6 @@
 import React, { Dispatch, useCallback, useContext } from 'react';
 import styled from 'styled-components';
-import GridControlsInput from './GridControlsInput';
+import GridControlsInput from './GridControls/Input';
 import {
   updateRowsAction,
   updateColumnsAction,
@@ -77,7 +77,7 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
 
   return (
     <StyledControls>
-      <GridControlsButton onClick={handleSave}>Save</GridControlsButton>
+      <GridControlsButton onClick={handleSave}>save</GridControlsButton>
       <GridControlsButton onClick={onPreviewClick}>preview</GridControlsButton>
       <GridControlsButton onClick={handleUndoClick}>undo</GridControlsButton>
       <GridControlsButton onClick={handleRedoClick}>redo</GridControlsButton>

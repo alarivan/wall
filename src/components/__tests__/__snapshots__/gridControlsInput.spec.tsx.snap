@@ -2,16 +2,38 @@
 
 exports[`GridControlsInput renders correctly 1`] = `
 <DocumentFragment>
-  <label>
-    label
-  </label>
-  <input
-    data-testid="grid-controls-input"
-    max="10"
-    min="5"
-    name="name"
-    type="number"
-    value="8"
-  />
+  .c0 {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+}
+
+.c0 label {
+  display: block;
+  background-color: lightgray;
+  padding: 0.25rem;
+  font-weight: 500;
+}
+
+.c0 input {
+  width: 100%;
+  padding: 0.25rem;
+}
+
+<div
+    class="c0"
+  >
+    <label>
+      label
+    </label>
+    <input
+      data-testid="grid-controls-input"
+      max="10"
+      min="5"
+      name="name"
+      type="number"
+      value="8"
+    />
+  </div>
 </DocumentFragment>
 `;
