@@ -5,14 +5,18 @@ function getTextColor(defaultColor: string, color?: string): string {
   return color ? readableColor(color) : readableColor(defaultColor);
 }
 
+function getHoverBgColor(defaultColor: string, color?: string): string {
+  return color || defaultColor;
+}
+
 interface Props {
   bgColor?: string;
 }
 
 const Button = styled.button<Props>`
+  width: 100%;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
-  margin-bottom: 0.25rem;
   border: none;
   font-weight: 500;
   text-transform: uppercase;
@@ -22,8 +26,10 @@ const Button = styled.button<Props>`
   color: ${({ theme, bgColor }) => getTextColor(theme.secondary, bgColor)};
   background-color: ${({ theme, bgColor }) =>
     bgColor ? bgColor : theme.secondary};
+
   :hover {
-    background-color: ${({ theme }) => darken(0.1, theme.secondary)};
+    background-color: ${({ theme, bgColor }) =>
+      darken(0.1, getHoverBgColor(theme.secondary, bgColor))};
   }
 `;
 

@@ -9,6 +9,7 @@ import {
   faEraser,
   faFill,
   faEyeDropper,
+  faPalette,
 } from '@fortawesome/free-solid-svg-icons';
 import PaletteControlsButton from './PaletteControls/Button';
 
@@ -26,8 +27,14 @@ const StyledPaletteControls = styled.div`
   padding: 0 0.5rem;
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 2px;
+  grid-gap: 0.25rem;
   align-content: start;
+`;
+
+const ButtonsGrid = styled.div`
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2px;
+  display: grid;
 `;
 
 const PaletteControls: React.FC<Props> = ({
@@ -46,28 +53,39 @@ const PaletteControls: React.FC<Props> = ({
   return (
     <StyledPaletteControls>
       <Palette onColorClick={onColorClick} current={current} colors={colors} />
-      <PaletteControlsButton
-        data-testid='palette-controls-eraser'
-        onClick={handleEraserClick}
-      >
-        <FontAwesomeIcon icon={faEraser} />
-      </PaletteControlsButton>
-      <PaletteControlsButton
-        data-testid='palette-controls-color-picker'
-        disabled={colorPicker}
-        onClick={onColorPickerClick}
-      >
-        <FontAwesomeIcon icon={faEyeDropper} />
-      </PaletteControlsButton>
-      <ColorPicker
-        trigger={props => (
-          <PaletteControlsButton bgColor={background} {...props}>
-            <FontAwesomeIcon icon={faFill} />
-          </PaletteControlsButton>
-        )}
-        color={background}
-        onChangeComplete={onBackgroundClick}
-      />
+      <ButtonsGrid>
+        <ColorPicker
+          color={current}
+          trigger={props => (
+            <PaletteControlsButton bgColor={current} {...props}>
+              <FontAwesomeIcon icon={faPalette} />
+            </PaletteControlsButton>
+          )}
+          onChangeComplete={colorResult => onColorClick(colorResult.hex)}
+        />
+        <ColorPicker
+          trigger={props => (
+            <PaletteControlsButton bgColor={background} {...props}>
+              <FontAwesomeIcon icon={faFill} />
+            </PaletteControlsButton>
+          )}
+          color={background}
+          onChangeComplete={onBackgroundClick}
+        />
+        <PaletteControlsButton
+          data-testid='palette-controls-eraser'
+          onClick={handleEraserClick}
+        >
+          <FontAwesomeIcon icon={faEraser} />
+        </PaletteControlsButton>
+        <PaletteControlsButton
+          data-testid='palette-controls-color-picker'
+          disabled={colorPicker}
+          onClick={onColorPickerClick}
+        >
+          <FontAwesomeIcon icon={faEyeDropper} />
+        </PaletteControlsButton>
+      </ButtonsGrid>
     </StyledPaletteControls>
   );
 };

@@ -3,7 +3,7 @@
 exports[`GridControlsInput renders correctly 1`] = `
 <DocumentFragment>
   .c0 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   text-align: center;
   box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PaletteCell from './PaletteCell';
 import { TColor } from '../types';
-import ColorPicker from './ColorPicker';
 
 interface Props {
   colors: TColor[];
@@ -31,11 +30,6 @@ const Palette: React.FC<Props> = ({ onColorClick, current, colors }) => {
           active={current === color}
         />
       ))}
-      <ColorPicker
-        color={current}
-        trigger={props => <PaletteCell {...props} />}
-        onChangeComplete={colorResult => onColorClick(colorResult.hex)}
-      />
     </StyledPalette>
   );
 };
