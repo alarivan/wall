@@ -22,6 +22,12 @@ import {
 import { GalleryContext } from '../GalleryContext';
 import { saveAction } from '../reducers/gallery/actions';
 import GridControlsButton from './GridControls/Button';
+import {
+  ResetButton,
+  ClearButton,
+  PreviewButton,
+  SaveButton,
+} from './GridControls/buttons';
 
 interface Props {
   state: TState;
@@ -79,11 +85,11 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
 
   return (
     <StyledControls>
-      <GridControlsButton onClick={handleSave}>save</GridControlsButton>
-      <GridControlsButton onClick={onPreviewClick}>preview</GridControlsButton>
+      <SaveButton onClick={handleSave}>save</SaveButton>
+      <PreviewButton onClick={onPreviewClick}>preview</PreviewButton>
       <GridControlsButton onClick={handleUndoClick}>undo</GridControlsButton>
       <GridControlsButton onClick={handleRedoClick}>redo</GridControlsButton>
-      <GridControlsButton onClick={handleClearClick}>clear</GridControlsButton>
+      <ClearButton onClick={handleClearClick}>clear</ClearButton>
       <GridControlsInput
         label='Rows'
         min={MIN_ROWS_VALUE}
@@ -108,7 +114,7 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
         value={grid.meta.size}
         onChange={handleSizeChange}
       />
-      <GridControlsButton onClick={handleResetClick}>reset</GridControlsButton>
+      <ResetButton onClick={handleResetClick}>reset</ResetButton>
     </StyledControls>
   );
 };

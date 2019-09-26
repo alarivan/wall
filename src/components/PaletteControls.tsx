@@ -11,7 +11,12 @@ import {
   faEyeDropper,
   faPalette,
 } from '@fortawesome/free-solid-svg-icons';
-import PaletteControlsButton from './PaletteControls/Button';
+import {
+  EraserButton,
+  BackgroundButton,
+  ColorPickerButton,
+  CustomColorButton,
+} from './PaletteControls/buttons';
 
 export interface Props {
   colors: TColor[];
@@ -57,34 +62,34 @@ const PaletteControls: React.FC<Props> = ({
         <ColorPicker
           color={current}
           trigger={props => (
-            <PaletteControlsButton bgColor={current} {...props}>
+            <CustomColorButton bgColor={current} {...props}>
               <FontAwesomeIcon icon={faPalette} />
-            </PaletteControlsButton>
+            </CustomColorButton>
           )}
           onChangeComplete={colorResult => onColorClick(colorResult.hex)}
         />
         <ColorPicker
           trigger={props => (
-            <PaletteControlsButton bgColor={background} {...props}>
+            <BackgroundButton bgColor={background} {...props}>
               <FontAwesomeIcon icon={faFill} />
-            </PaletteControlsButton>
+            </BackgroundButton>
           )}
           color={background}
           onChangeComplete={onBackgroundClick}
         />
-        <PaletteControlsButton
+        <EraserButton
           data-testid='palette-controls-eraser'
           onClick={handleEraserClick}
         >
           <FontAwesomeIcon icon={faEraser} />
-        </PaletteControlsButton>
-        <PaletteControlsButton
+        </EraserButton>
+        <ColorPickerButton
           data-testid='palette-controls-color-picker'
           disabled={colorPicker}
           onClick={onColorPickerClick}
         >
           <FontAwesomeIcon icon={faEyeDropper} />
-        </PaletteControlsButton>
+        </ColorPickerButton>
       </ButtonsGrid>
     </StyledPaletteControls>
   );
