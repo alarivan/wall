@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 import { darken, readableColor } from 'polished';
 
-function getTextColor(defaultColor: string, color?: string): string {
-  return color ? readableColor(color) : readableColor(defaultColor);
-}
-
-function getHoverBgColor(defaultColor: string, color?: string): string {
-  return color || defaultColor;
-}
-
 interface Props {
   bgColor?: string;
 }
@@ -23,13 +15,12 @@ const Button = styled.button<Props>`
   box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
   transition: background-color 200ms ease-in;
 
-  color: ${({ theme, bgColor }) => getTextColor(theme.secondary, bgColor)};
-  background-color: ${({ theme, bgColor }) =>
-    bgColor ? bgColor : theme.secondary};
+  color: ${({ theme, bgColor }) => readableColor(bgColor || theme.secondary)};
+  background-color: ${({ theme, bgColor }) => bgColor || theme.secondary};
 
   :hover {
     background-color: ${({ theme, bgColor }) =>
-      darken(0.1, getHoverBgColor(theme.secondary, bgColor))};
+      darken(0.1, bgColor || theme.secondary)};
   }
 `;
 
