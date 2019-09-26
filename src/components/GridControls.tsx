@@ -21,7 +21,6 @@ import {
 } from '../constants';
 import { GalleryContext } from '../GalleryContext';
 import { saveAction } from '../reducers/gallery/actions';
-import { navigate } from '@reach/router';
 import GridControlsButton from './GridControls/Button';
 
 interface Props {
@@ -76,7 +75,6 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
 
   function handleSave() {
     galleryDispatch(saveAction(grid));
-    navigate('/');
   }
 
   return (
