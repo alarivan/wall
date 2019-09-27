@@ -28,6 +28,7 @@ import {
   PreviewButton,
   SaveButton,
 } from './GridControls/buttons';
+import { toast } from 'react-toastify';
 
 interface Props {
   state: TState;
@@ -81,6 +82,7 @@ const GridControls: React.FC<Props> = ({ state, dispatch, onPreviewClick }) => {
 
   function handleSave() {
     galleryDispatch(saveAction(grid));
+    toast.success('Saved!');
   }
 
   return (

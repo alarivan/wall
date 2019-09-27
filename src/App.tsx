@@ -8,6 +8,7 @@ import Header from './components/Header';
 import { ThemeProvider } from 'styled-components';
 import theme from './themes/default';
 import GlobalStyles from './globalStyles';
+import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +24,7 @@ const App: React.FC = () => {
             <NotFound default />
           </Router>
         </GalleryProvider>
+        <ToastContainer autoClose={1500} />
       </>
     </ThemeProvider>
   );
